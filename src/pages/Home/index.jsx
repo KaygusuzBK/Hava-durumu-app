@@ -1,9 +1,15 @@
 import React from "react";
-import { getWeather } from "~/services";
+import { getCurrentWeather, getWeatherByCity } from "~/services";
 
 function Home() {
   React.useEffect(() => {
-    getWeather("tekirdağ").then((data) => {
+    getCurrentWeather().then((data) => {
+      console.log(data);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    getWeatherByCity("ankara").then((data) => {
       console.log(data);
     });
   }, []);
