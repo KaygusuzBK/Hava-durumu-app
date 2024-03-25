@@ -80,7 +80,7 @@ const getFiveDayWeatherForecast = async (city) => {
       apiKey;
     const response = await axios.get(forecastUrl);
 
-    return response.data;
+    return response.data.list;
   } catch (error) {
     console.error("Sonraki 5 günün hava durumu alınamadı:", error.message);
     throw error;
