@@ -5,7 +5,6 @@ import WeatherBg from "~/assets/img/Weather/Weather=Clear, Moment=Day.svg";
 
 function WeatherCard({ weather }) {
   let time = new Date();
-  console.log(weather);
   if (!weather) {
     return (
       <div className="text-white text-3xl justify-center items-center">

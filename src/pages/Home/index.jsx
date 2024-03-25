@@ -2,9 +2,10 @@ import React from "react";
 import { useEffect, useState } from "react";
 import WeatherCard from "~/components/WeatherCard";
 import { getCurrentWeather, getFiveDayWeatherForecast } from "~/services";
+import { weatherConfig } from "~/enums";
 
 function Home() {
-  const [WeatherBycurrentLocation, WeatherBysetCurrentLocation] = useState(""); 
+  const [WeatherBycurrentLocation, WeatherBysetCurrentLocation] = useState("");
 
   useEffect(() => {
     getCurrentWeather().then((data) => {
