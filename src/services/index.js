@@ -32,7 +32,7 @@ const getCurrentPosition = () => {
       },
       (error) => {
         console.error("Konum izni reddedildi veya hata oluştu:", error.message);
-        resolve({ coords: { latitude: null, longitude: null } }); // Varsayılan değer olarak null koordinatları gönder
+        reject(error); // Varsayılan değer olarak null koordinatları gönder
       }
     );
   });

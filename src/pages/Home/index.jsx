@@ -4,11 +4,11 @@ import WeatherCard from "~/components/WeatherCard";
 import { getCurrentWeather, getFiveDayWeatherForecast } from "~/services";
 
 function Home() {
-  const [currentLocation, setCurrentLocation] = useState("");
+  const [WeatherBycurrentLocation, WeatherBysetCurrentLocation] = useState(""); 
 
   useEffect(() => {
     getCurrentWeather().then((data) => {
-      setCurrentLocation(data);
+      WeatherBysetCurrentLocation(data);
     });
   }, []);
 
@@ -23,7 +23,7 @@ function Home() {
 
   return (
     <div>
-      <WeatherCard weather={currentLocation} />
+      <WeatherCard weather={WeatherBycurrentLocation} />
     </div>
   );
 }

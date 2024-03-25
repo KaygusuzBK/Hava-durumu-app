@@ -1,7 +1,7 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { useEffect, useState } from "react";
-import WeatherBg from "~/assets/img/Weather=Clear, Moment=Day.png";
+import WeatherBg from "~/assets/img/Weather/Weather=Clear, Moment=Day.svg";
 
 function WeatherCard({ weather }) {
   let time = new Date();
