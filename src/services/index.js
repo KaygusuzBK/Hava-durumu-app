@@ -71,4 +71,20 @@ const getWeatherByCity = async (city) => {
   }
 };
 
-export { getCurrentWeather, getWeatherByCity };
+const getFiveDayWeatherForecast = async (city) => {
+  try {
+    const forecastUrl =
+      "https://api.openweathermap.org/data/2.5/forecast?q=" +
+      city +
+      "&cnt=5&appid=" +
+      apiKey;
+    const response = await axios.get(forecastUrl);
+
+    return response.data;
+  } catch (error) {
+    console.error("Sonraki 5 günün hava durumu alınamadı:", error.message);
+    throw error;
+  }
+};
+
+export { getCurrentWeather, getWeatherByCity, getFiveDayWeatherForecast };

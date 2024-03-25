@@ -1,20 +1,29 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { getCurrentWeather, getWeatherByCity } from "~/services";
+import WeatherCard from "~/components/WeatherCard";
+import { getCurrentWeather, getFiveDayWeatherForecast } from "~/services";
 
 function Home() {
   const [currentLocation, setCurrentLocation] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     getCurrentWeather().then((data) => {
-      console.log(data);
       setCurrentLocation(data);
     });
   }, []);
 
+  // 5 GÜNLÜK VERİ
+  // useEffect(() => {
+  //   if (currentLocation) {
+  //     getFiveDayWeatherForecast(currentLocation.name).then((data) => {
+  //       console.log(data);
+  //     });
+  //   }
+  // }, [currentLocation]);
+
   return (
     <div>
-      <h1 className="text-white">Bulunduğunuz Konum: {currentLocation.name}</h1>
+      <WeatherCard weather={currentLocation} />
     </div>
   );
 }
