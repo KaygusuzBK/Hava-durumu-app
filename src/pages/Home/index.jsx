@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import WeatherCard from "~/components/WeatherCard";
 import { getCurrentWeather, getFiveDayWeatherForecast } from "~/services";
-import { weatherConfig } from "~/enums";
 
 function Home() {
   const [WeatherBycurrentLocation, WeatherBysetCurrentLocation] = useState("");
@@ -46,11 +45,11 @@ function Home() {
               fiveDayWeather={WeatherByFiveDayForecast}
             />
           </div>
-          {/*  5 günlük hava durumu kartları olacak */}
+           {/* 5 günlük hava durumu kartları olacak
           {!isMobileView &&
             WeatherByFiveDayForecast.slice(1).map((weather, index) => (
               <WeatherCard key={index + 1} weather={weather} />
-            ))}
+            ))} */}
         </>
       )}
     </div>
