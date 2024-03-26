@@ -34,19 +34,19 @@ function Home() {
   }, [WeatherBycurrentLocation]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 px-5 mt-10">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 px-5 mt-10">
       {loading ? (
         <p>Loading...</p>
       ) : (
         <>
-          <div className="bg-black">
+          <div>
             <WeatherCard
               key={0}
               weather={WeatherBycurrentLocation}
               fiveDayWeather={WeatherByFiveDayForecast}
             />
           </div>
-          {/* İlk hava durumu kartını göster */}
+          {/*  5 günlük hava durumu kartları olacak */}
           {!isMobileView &&
             WeatherByFiveDayForecast.slice(1).map((weather, index) => (
               <WeatherCard key={index + 1} weather={weather} />
