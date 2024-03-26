@@ -40,7 +40,11 @@ function Home() {
       ) : (
         <>
           <div className="bg-black">
-            <WeatherCard key={0} weather={WeatherBycurrentLocation} />
+            <WeatherCard
+              key={0}
+              weather={WeatherBycurrentLocation}
+              fiveDayWeather={WeatherByFiveDayForecast}
+            />
           </div>
           {/* İlk hava durumu kartını göster */}
           {!isMobileView &&
