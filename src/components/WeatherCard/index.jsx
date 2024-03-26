@@ -2,10 +2,18 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { useEffect, useState, useLayoutEffect } from "react";
 import { weatherConfig } from "~/enums";
+import WeatherItem from "~/components/WeatherItem/index";
+import {
+  CloudRain,
+  ThermometerSimple,
+  Wind,
+  Drop,
+  Sun,
+} from "@phosphor-icons/react";
+import Logo from "~/assets/img/Logo.svg";
 
 function WeatherCard({ weather, fiveDayWeather }) {
   console.log(weather);
-  let time = new Date();
   if (!weather) {
     return (
       <div className="text-white text-3xl justify-center items-center">
@@ -37,59 +45,76 @@ function WeatherCard({ weather, fiveDayWeather }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div
-        className="flex flex-col px-20 py-20 bg-gray-600 justify-start items-center"
-        style={{
-          backgroundImage: `url(${weatherConfig.clear.DayBgImagePath})`,
-        }}
-      >
-        <div className="flex flex-col">
-          {/*  Şehir */}
-          <div className="text-white text-xl flex items-center">
-            {weather.name} {weather.sys.country}
+    <div className="flex flex-col justify-center items-center bg-black rounded-lg p-2">
+      <div className="flex flex-col justify-between items-start  h-[305px] w-[305px] bg-gray-950 rounded-xl p-4 text-white">
+        <div className="flex flex-col items-start justify-center gap-2">
+          <div className="text-4xl">{weather.name}</div>
+          <div>{weather.weather[0].description}</div>
+          <div>{weather.dt_txt}</div>
+        </div>
+        <div className="flex justify-between items-end w-full h-full gap-4">
+          <div className="flex flex-col items-start justify-center gap-2">
+            <div className="text-3xl pl-0.5">
+              {kelvinToCelsius(weather.main.temp)}°C
+            </div>
+            <div className="flex gap-2 text-xs">
+              {kelvinToCelsius(weather.main.temp_max)}°C /
+              {kelvinToCelsius(weather.main.temp_min)}°C
+            </div>
+            <div className="text-xs">{weather.weather[0].description}</div>
           </div>
-          {/* Zamanlar  */}
-          <div className="text-white ">
-            {
-              time.toDateString().slice(0, 3) + // Günün adı
-                ", " +
-                time.toDateString().slice(4, 7) + // ayın adı
-                ", " +
-                time.toDateString().slice(8, 10) + // günün tarihi
-                ", " +
-                time.toDateString().slice(11, 15) // yıl
-            }
+          <div>
+            <img src={Logo} alt="weather" className="w-24 h-24" />
           </div>
         </div>
-        <div>{weather.name}</div>
       </div>
       <br />
       {/* 2. Kısım */}
-      <div className="flex flex-col items-center justify-center  bg-gray-950 p-4 rounded-lg">
-        <div className="text-white text-3xl">
-          {kelvinToCelsius(weather.main.feels_like)}°C
-        </div>
-        <hr className="w-full border-1 border-white" />
-        <div className="text-white text-3xl">{weather.main.humidity}% Nem</div>
-        <hr className="w-full border-1 border-white" />
-        <div className="text-white text-3xl">
-          {mpsToKph(weather.wind.speed)} km/h
-        </div>
-        <hr className="w-full border-1 border-white" />
-        <div className="text-white text-3xl"></div>
-        <hr className="w-full border-1 border-white" />
+      <div className="flex flex-col items-center justify-center bg-gray-950 rounded-xl gap-2 p-4">
+        <WeatherItem
+          icon={<ThermometerSimple />}
+          label="Thermal sensation"
+          value={`${kelvinToCelsius(weather.main.temp)}°C`}
+        />
+        <hr className="w-60 border -m-2 border-gray-900" />
+        <WeatherItem
+          icon={<CloudRain />}
+          label="Probality of rain"
+          value={`${weather.main.temp}°C`}
+        />
+        <hr className="w-60 border -m-2 border-gray-900" />
+        <WeatherItem
+          icon={<Wind />}
+          label="Wind speed"
+          value={`${mpsToKph(weather.wind.speed)} km/h`}
+        />
+        <hr className="w-60 border -m-2 border-gray-900" />
+        <WeatherItem
+          icon={<Drop />}
+          label="Air humidity"
+          value={`${weather.main.humidity}%`}
+        />
+        <hr className="w-60 border -m-2 border-gray-900" />
+        <WeatherItem
+          icon={<Sun />}
+          label="UV index"
+          value={`${weather.main.temp}°C`}
+        />
       </div>
       {/* 3. KISIM */}
-      <div className="flex flex-wrap rounded">
+      ""{" "}
+      <div className="flex flex-wrap rounded-xl  p-4 mt-4">
         {fiveDayWeather &&
           isMobile &&
           fiveDayWeather.map((weather, index) => (
             <div
               key={index}
-              className="flex items-center justify-center rounded-full bg-blue-500 text-white text-sm mr-2 px-3 py-1 mb-2"
+              className="flex flex-col items-center justify-center rounded-full text-white text-sm mr-2 px-3 py-1 mb-2"
             >
-              {weather.main.feels_like}°C
+              <div>{weather.dt_txt.slice(5, 10)}</div>
+              <img src={weatherConfig.rain.DayBgImagePath} alt="weather" />
+              <div>{mpsToKph(weather.main.temp_max)}°C</div>
+              <div>{mpsToKph(weather.main.temp_min)}°C</div>
             </div>
           ))}
       </div>

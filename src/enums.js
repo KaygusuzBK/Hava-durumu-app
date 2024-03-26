@@ -3,9 +3,8 @@ export const weatherConfig = {
     backgroundImage: "src/assets/img/Background.svg",
   },
   clear: {
-    DayBgImagePath: "~/assets/img/Weather/Weather=CLear, Moment=Day.svg",
+    DayBgImagePath: "src/assets/img/Weather/Weather=CLear, Moment=Day.svg",
     NightBgImagePath: "~/assets/img/Weather/Weather=CLear, Moment=Night.svg",
-
   },
   cloudy: {
     DayBgImagePath: "~/assets/img/Weather/Weather=Cloudy, Moment=Day.svg",
@@ -18,7 +17,6 @@ export const weatherConfig = {
   rain: {
     DayBgImagePath: "~/assets/img/Weather/Weather=Rain, Moment=Day.svg",
     NightBgImagePath: "~/assets/img/Weather/Weather=Rain, Moment=Night.svg",
-    
   },
   storm: {
     DayBgImagePath: "~/assets/img/Weather/Weather=Storm, Moment=Day.svg",
