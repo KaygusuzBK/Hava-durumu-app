@@ -20,6 +20,7 @@ export default {
           bg: "#1E1E29",
           border: "#d1d5db",
           text: "#374151",
+          popover: "#3B3B54",
         },
         Product: {
           blueLight: "#8FB2F5",

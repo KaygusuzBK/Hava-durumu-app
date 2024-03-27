@@ -8,7 +8,7 @@ function CardHeader({ weather }) {
 
   const mpsToKph = (mps) => {
     return (mps * 3.6).toFixed(2); // 1 m/s = 3.6 km/h
-  }; 
+  };
 
   return (
     <div
@@ -23,10 +23,10 @@ function CardHeader({ weather }) {
       </div>
       <div className="flex justify-between items-end w-full h-full gap-4">
         <div className="flex flex-col items-start justify-center gap-2">
-          <div className="text-3xl pl-0.5">
+          <div className="text-3xl pl-0.5 font-extrabold">
             {kelvinToCelsius(weather.main.temp)}°C
           </div>
-          <div className="flex gap-2 text-sm font-bold">
+          <div className="flex gap-2 text-sm font-">
             {kelvinToCelsius(weather.main.temp_max)}°C /
             {kelvinToCelsius(weather.main.temp_min)}°C
           </div>

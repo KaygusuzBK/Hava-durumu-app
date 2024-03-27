@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import CardHeader from "~/components/WeatherCard/CardHeader/index";
 import CardFooter from "~/components/WeatherCard/CardFooter/index";
-import WeatherItem from "~/components/WeatherItem/index";
+import CardContent from "~/components/WeatherCard/CardContent/index";
 import {
   CloudRain,
   ThermometerSimple,
@@ -48,31 +48,31 @@ function WeatherCard({ weather, fiveDayWeather }) {
       <CardHeader weather={weather} />
       <br />
       <div className="flex flex-col items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px]">
-        <WeatherItem
+        <CardContent
           icon={<ThermometerSimple />}
           label="Thermal sensation"
           value={`${kelvinToCelsius(weather.main.temp)}°C`}
         />
         <hr className="w-[327px] border -m-2 border-gray-900" />
-        <WeatherItem
+        <CardContent
           icon={<CloudRain />}
           label="Probality of rain"
           value={`${weather.main.temp}°C`}
         />
         <hr className="w-[327px] border -m-2 border-gray-900" />
-        <WeatherItem
+        <CardContent
           icon={<Wind />}
           label="Wind speed"
           value={`${mpsToKph(weather.wind.speed)} km/h`}
         />
         <hr className="w-[327px] border -m-2 border-gray-900" />
-        <WeatherItem
+        <CardContent
           icon={<Drop />}
           label="Air humidity"
           value={`${weather.main.humidity}%`}
         />
         <hr className="w-[327px] border -m-2 border-gray-900" />
-        <WeatherItem
+        <CardContent
           icon={<Sun />}
           label="UV index"
           value={`${weather.main.temp}°C`}

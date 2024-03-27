@@ -1,8 +1,10 @@
-function WeatherItem({ label, value, icon }) {
+function CardContent({ label, value, icon }) {
   return (
     <div className="flex justify-between items-center text-white text-opacity-50 w-[327px] bg-myGray-800 ">
       <div className="flex items-center ">
-        <div className="mr-2">{icon}</div>
+        <div className="mr-2 w-[24px] h-[24px] flex justify-center items-center">
+          {icon}
+        </div>
         <p>{label}</p>
       </div>
       <div>{value}</div>
@@ -10,4 +12,4 @@ function WeatherItem({ label, value, icon }) {
   );
 }
 
-export default WeatherItem;
+export default CardContent;

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const apiKey = "3ab7af5ac4f39937f991577ad9f3418e";
+const defaultCity = "İstanbul";
 
 const getCurrentWeather = async () => {
   try {
@@ -10,16 +11,11 @@ const getCurrentWeather = async () => {
         ? await getCityName(position.coords.latitude, position.coords.longitude)
         : defaultCity;
 
-    const weatherUrl =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      cityName +
-      "&appid=" +
-      apiKey;
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
     const response = await axios.get(weatherUrl);
 
     return response.data;
   } catch (error) {
-    console.error("Hava durumu alınamadı:", error.message);
     throw error;
   }
 };
@@ -41,12 +37,7 @@ const getCurrentPosition = () => {
 const getCityName = async (latitude, longitude) => {
   try {
     const response = await axios.get(
-      "https://api.openweathermap.org/data/2.5/weather?lat=" +
-        latitude +
-        "&lon=" +
-        longitude +
-        "&appid=" +
-        apiKey
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
     );
     return response.data.name;
   } catch (error) {
@@ -57,27 +48,19 @@ const getCityName = async (latitude, longitude) => {
 
 const getWeatherByCity = async (city) => {
   try {
-    const weatherUrl =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      city +
-      "&appid=" +
-      apiKey;
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
     const response = await axios.get(weatherUrl);
 
     return response.data;
   } catch (error) {
-    console.error(city + " için hava durumu alınamadı:", error.message);
+    console.error(`${city} için hava durumu alınamadı:`, error.message);
     throw error;
   }
 };
 
 const getFiveDayWeatherForecast = async (city) => {
   try {
-    const forecastUrl =
-      "https://api.openweathermap.org/data/2.5/forecast?q=" +
-      city +
-      "&cnt=5&appid=" +
-      apiKey;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=5&appid=${apiKey}`;
     const response = await axios.get(forecastUrl);
 
     return response.data.list;

@@ -12,7 +12,7 @@ function Home() {
     getCurrentWeather().then((data) => {
       WeatherBysetCurrentLocation(data);
     });
-  }, []);
+  }, [WeatherBysetCurrentLocation]);
 
   useEffect(() => {
     if (WeatherBycurrentLocation) {
@@ -45,11 +45,11 @@ function Home() {
               fiveDayWeather={WeatherByFiveDayForecast}
             />
           </div>
-           {/* 5 günlük hava durumu kartları olacak
-          {!isMobileView &&
-            WeatherByFiveDayForecast.slice(1).map((weather, index) => (
-              <WeatherCard key={index + 1} weather={weather} />
-            ))} */}
+          {/* 5 günlük hava durumu kartları olacak */}
+          {/* {!isMobileView &&
+              WeatherByFiveDayForecast.slice(1).map((weather, index) => (
+                <WeatherCard key={index + 1} weather={weather} />
+              ))} */}
         </>
       )}
     </div>
