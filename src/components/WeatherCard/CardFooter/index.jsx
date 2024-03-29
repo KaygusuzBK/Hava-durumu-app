@@ -12,11 +12,11 @@ export default function CardFooter({ weather, fiveDayWeather }) {
   };
 
   return (
-    <div className="flex rounded-xl px-2 bg-myGray-800 mt-4">
+    <>
       {fiveDayWeather.map((weather, index) => (
         <div
           key={index}
-          className="w-[67px] h-[152px] flex flex-col items-center justify-center bg-myGray-800 rounded-xl gap-1 text-white"
+          className="flex flex-col items-center justify-center  rounded-xl gap-1 text-white"
         >
           <div>{weather.dt_txt.slice(5, 10)}</div>
           <img src={Logo} alt="weather" className="w-[56px] h-[56px]" />
@@ -24,6 +24,6 @@ export default function CardFooter({ weather, fiveDayWeather }) {
           <div>{kelvinToCelsius(weather.main.temp_min)}°C</div>
         </div>
       ))}
-    </div>
+    </>
   );
 }

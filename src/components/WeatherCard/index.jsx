@@ -44,10 +44,9 @@ function WeatherCard({ weather, fiveDayWeather }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-myGray-900 rounded-xl p-2 w-[359px]">
+    <div className="flex flex-col justify-start items-center rounded-xl w-[375px] h-[840px] bg-myGray-white gap-1">
       <CardHeader weather={weather} />
-      <br />
-      <div className="flex flex-col items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px]">
+      <div className="flex flex-col items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px] ">
         <CardContent
           icon={<ThermometerSimple />}
           label="Thermal sensation"
@@ -59,7 +58,7 @@ function WeatherCard({ weather, fiveDayWeather }) {
           label="Probality of rain"
           value={`${weather.main.temp}°C`}
         />
-        <hr className="w-[327px] border -m-2 border-gray-900" />
+        <hr className="w-[327px]  -m-2 border-gray-900" />
         <CardContent
           icon={<Wind />}
           label="Wind speed"
@@ -78,9 +77,16 @@ function WeatherCard({ weather, fiveDayWeather }) {
           value={`${weather.main.temp}°C`}
         />
       </div>
-      <div className="flex flex-col items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px] mt-2">
-        <CardFooter weather={fiveDayWeather} fiveDayWeather={fiveDayWeather} />
-      </div>
+      {isMobile ? (
+        <div className="flex items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px]  py-4">
+          <CardFooter
+            weather={fiveDayWeather}
+            fiveDayWeather={fiveDayWeather}
+          />
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

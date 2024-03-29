@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { SpinnerGap } from "@phosphor-icons/react";
 
 export default function SearchBar() {
   const allCities = [
@@ -116,7 +117,23 @@ export default function SearchBar() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [matchedCities, setMatchedCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [showSpinner, setShowSpinner] = useState(false);
   const [popoverVisible, setPopoverVisible] = useState(false);
+  const popoverRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+        setPopoverVisible(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (searchTerm === "") {
@@ -130,43 +147,56 @@ export default function SearchBar() {
     );
     setMatchedCities(matches.slice(0, 3)); // Max 3 eşleşme göster
     setPopoverVisible(true);
-  }, [searchTerm]);
+  }, [searchTerm, allCities]);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const handleCitySelect = (city) => {
-    setSearchTerm(city);
+    setSelectedCity(city);
+    setSearchTerm(city); // Seçilen şehri arama çubuğuna yaz
     setPopoverVisible(false);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      setShowSpinner(true); // Spinner'ı göster
+
+      // Spinner'ı 5 saniye sonra gizle
+      setTimeout(() => {
+        setShowSpinner(false);
+      }, 5000);
+    }
+  };
+
   return (
-    <div className="search-bar">
+    <div className="search-bar relative">
       <input
-        className="bg-searchBar-bg p-2 rounded-lg text-white"
+        className="bg-searchBar-bg rounded-lg text-white text-lg w-[311px] h-[56px] pl-4"
         type="text"
         placeholder="Search location"
         value={searchTerm}
         onChange={handleInputChange}
+        onKeyDown={handleKeyPress} // Enter tuşuna basıldığında tetiklenecek
       />
       {popoverVisible && (
-        <div className="popover">
+        <div
+          ref={popoverRef}
+          className="popover absolute bg-white border border-gray-300 shadow-md rounded mt-1 w-[315px]"
+        >
           {matchedCities.map((city, index) => (
-            <React.Fragment key={index}>
-              <div
-                className="popover-item bg-gray-500 p-2 text-white"
-                onClick={() => handleCitySelect(city)}
-              >
-                {city}
-              </div>
-              {index !== matchedCities.length - 1 && (
-                <hr className="popover-divider" />
-              )}
-            </React.Fragment>
+            <div
+              key={index}
+              className="popover-item p-2 text-gray-800 cursor-pointer hover:bg-gray-200"
+              onClick={() => handleCitySelect(city)}
+            >
+              {city}
+            </div>
           ))}
         </div>
       )}
+      {showSpinner && <SpinnerGap size={32} />} {/* Spinner'ı göster */}
     </div>
   );
 }
