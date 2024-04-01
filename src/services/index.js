@@ -48,7 +48,7 @@ const getCityName = async (latitude, longitude) => {
 
 const getWeatherByCity = async (city) => {
   try {
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+    const weatherUrl = `https://pro.openweathermap.org/data/2.5/forecast/daily?q=${city}&appid=${apiKey}`;
     const response = await axios.get(weatherUrl);
 
     return response.data;

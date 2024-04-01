@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import WeatherCard from "~/components/WeatherCard";
+import MobileComponent from "~/components/MobileComponent";
 import { getCurrentWeather, getFiveDayWeatherForecast } from "~/services";
 
 function Home() {
@@ -33,12 +34,12 @@ function Home() {
   }, [WeatherBycurrentLocation]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 px-5 mt-10">
+    <div className="grid grid-cols-1 gap-4 p-4">
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <>
-          <div>
+        <div className="flex justify-center items-center">
+          <div className="flex flex-col items-center justify-center">
             <WeatherCard
               key={0}
               weather={WeatherBycurrentLocation}
@@ -46,11 +47,11 @@ function Home() {
             />
           </div>
           {/* 5 günlük hava durumu kartları olacak */}
-          {/* {!isMobileView &&
-              WeatherByFiveDayForecast.slice(1).map((weather, index) => (
-                <WeatherCard key={index + 1} weather={weather} />
-              ))} */}
-        </>
+          {!isMobileView &&
+            WeatherByFiveDayForecast.slice(1).map((weather, index) => (
+              <WeatherCard key={index + 1} weather={weather} />
+            ))}
+        </div>
       )}
     </div>
   );
