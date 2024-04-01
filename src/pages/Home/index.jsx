@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WeatherCard from "~/components/WeatherCard";
 import MobileComponent from "~/components/MobileComponent";
+import SkeletonCard from "~/components/SkeletonCard";
 import { getCurrentWeather, getFiveDayWeatherForecast } from "~/services";
 
 function Home() {
@@ -18,7 +19,6 @@ function Home() {
   useEffect(() => {
     if (WeatherBycurrentLocation) {
       getFiveDayWeatherForecast(WeatherBycurrentLocation.name).then((data) => {
-        console.log(data);
         SetWeatherByFiveDayForecast(data);
         setLoading(false); // Yükleme tamamlandığında yüklemeyi durdur
       });
@@ -36,7 +36,7 @@ function Home() {
   return (
     <div className="grid grid-cols-1 gap-4 p-4">
       {loading ? (
-        <p>Loading...</p>
+        <SkeletonCard />
       ) : (
         <div className="flex justify-center items-center">
           <div className="flex flex-col items-center justify-center">

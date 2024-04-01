@@ -120,11 +120,11 @@ export default function SearchBar() {
   const [selectedCity, setSelectedCity] = useState("");
   const [showSpinner, setShowSpinner] = useState(false);
   const [popoverVisible, setPopoverVisible] = useState(false);
-  const popoverRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
         setPopoverVisible(false);
       }
     }
@@ -145,7 +145,7 @@ export default function SearchBar() {
     const matches = allCities.filter((city) =>
       city.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setMatchedCities(matches.slice(0, 3)); // Max 3 eşleşme göster
+    setMatchedCities(matches.slice(0, 3));
     setPopoverVisible(true);
   }, [searchTerm, allCities]);
 
@@ -155,36 +155,32 @@ export default function SearchBar() {
 
   const handleCitySelect = (city) => {
     setSelectedCity(city);
-    setSearchTerm(city); // Seçilen şehri arama çubuğuna yaz
-    setPopoverVisible(false);
+    setSearchTerm(city);
+    setPopoverVisible(false); // Seçim yapıldıktan sonra popover'ı kapat
   };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      setShowSpinner(true); // Spinner'ı göster
-
-      // Spinner'ı 5 saniye sonra gizle
+      setShowSpinner(true);
       setTimeout(() => {
         setShowSpinner(false);
-      }, 5000);
+      }, 3000); // 3 saniye sonra spinner'ı kaldır
     }
   };
 
   return (
     <div className="search-bar relative">
       <input
+        ref={inputRef}
         className="bg-searchBar-bg rounded-lg text-white text-lg w-[311px] h-[56px] pl-4"
         type="text"
         placeholder="Search location"
         value={searchTerm}
         onChange={handleInputChange}
-        onKeyDown={handleKeyPress} // Enter tuşuna basıldığında tetiklenecek
+        onKeyDown={handleKeyPress}
       />
       {popoverVisible && (
-        <div
-          ref={popoverRef}
-          className="popover absolute bg-white border border-gray-300 shadow-md rounded mt-1 w-[315px]"
-        >
+        <div className="popover absolute bg-white border border-gray-300 shadow-md rounded mt-1 w-[315px]">
           {matchedCities.map((city, index) => (
             <div
               key={index}
@@ -196,7 +192,11 @@ export default function SearchBar() {
           ))}
         </div>
       )}
-      {showSpinner && <SpinnerGap size={32} />} {/* Spinner'ı göster */}
+      {showSpinner && (
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+          <SpinnerGap size={32} />
+        </div>
+      )}
     </div>
   );
 }

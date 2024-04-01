@@ -27,6 +27,8 @@ export default {
         },
       },
       fontSize: {
+        "heading-hg": "96px",
+        "heading-xl": "48px",
         "heading-lg": "32px",
         "heading-md": "24px",
         "heading-sm": "20px",
@@ -37,6 +39,8 @@ export default {
         "text-xs": "12px",
       },
       lineHeight: {
+        "heading-hg": "100%",
+        "heading-xl": "120%",
         "heading-lg": "140%",
         "heading-md": "140%",
         "heading-sm": "140%",
@@ -47,6 +51,8 @@ export default {
         "text-xs": "140%",
       },
       fontWeight: {
+        "heading-hg": "800",
+        "heading-xl": "800",
         "heading-lg": "700",
         "heading-md": "700",
         "heading-sm": "700",

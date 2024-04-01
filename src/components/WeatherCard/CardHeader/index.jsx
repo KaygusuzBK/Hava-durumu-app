@@ -16,38 +16,42 @@ function CardHeader({ weather }) {
   };
 
   return (
-    <div className="flex justify-center items-center bg-myGray-800 rounded-xl w-[335px] h-[304px] p-3">
+    <div className="flex justify-center items-center  rounded-xl w-[335px] h-[304px] p-3">
       <div
-        className="flex flex-col justify-between items-start rounded-xl w-[335px] h-[304px] text-white "
-        // style={{ // TODO Bg image path
-        //   backgroundImage: `url(${weatherConfig.getImagePath(
-        //     weather.weather[0]?.main, // weather.weather[0].main olmalı
-        //     dayOrNight()
-        //   )})`,
-        // }}
+        // TODO Bg image path
+        className="flex flex-col justify-between items-start rounded-xl w-[335px] h-[304px] text-white"
+        style={{
+          backgroundImage: `url(${weatherConfig.getImagePath(
+            "Clear",
+            "Night"
+          )})`,
+        }}
       >
         <div className="flex flex-col items-start justify-center px-4 py-3">
-          <div className="text-xl">
-            {weather.name}, {weather.sys.country}
+          <div className="text-heading-sm">
+            {weather.name} {weather.sys.country}
           </div>
-          <div className="font-thin text-sm ">27.03.2024</div>
+          <div className=" text-text-xs ">27.03.2024</div>
         </div>
         <div className="flex justify-between items-end w-full h-full gap-4 px-4 py-3">
           <div className="flex flex-col items-start justify-center ">
-            <div className="text-4xl pl-0.5 font-extrabold pb-4">
-              {kelvinToCelsius(weather.main.temp)}°C
+            <div className="pl-0.5 text-heading-xl font-heading-lg pb-4">
+              {kelvinToCelsius(weather.main.temp).slice(0, 2)}°C
             </div>
-            <div className="flex text-sm font-">
-              {kelvinToCelsius(weather.main.temp_max)}°C /
-              {kelvinToCelsius(weather.main.temp_min)}°C
+            <div className="flex text-heading-sm font-heading-sm ">
+              {kelvinToCelsius(weather.main.temp_max).slice(0, 2)}°C /
+              {kelvinToCelsius(weather.main.temp_min).slice(0, 2)}°C
             </div>
             <div className="text-sm">{weather.weather[0].description}</div>
           </div>
-          <div className="flex items-center justify-center max-w-[100px] max-h-[100px] pr-6">
+          <div className="flex items-center justify-center max-w-[160px] ">
             <img
-              src={weatherConfig.getIconPath("sun rain")}
+              src={weatherConfig.getIconPath(
+                weather.weather[0].description,
+                dayOrNight()
+              )}
               alt="weather"
-              className="w-24"
+              className="w-[160px] "
             />
           </div>
         </div>

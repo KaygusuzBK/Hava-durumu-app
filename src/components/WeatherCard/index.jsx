@@ -12,7 +12,6 @@ import {
 } from "@phosphor-icons/react";
 
 function WeatherCard({ weather, fiveDayWeather }) {
-  console.log(weather);
   if (!weather) {
     return (
       <div className="text-white text-3xl justify-center items-center">
@@ -44,7 +43,7 @@ function WeatherCard({ weather, fiveDayWeather }) {
   };
 
   return (
-    <div className="flex flex-col justify-start items-center rounded-xl w-[375px] h-[840px] bg-myGray-white gap-1">
+    <div className="flex flex-col justify-start items-center rounded-xl w-[375px] h-[840px] gap-1">
       <CardHeader weather={weather} />
       <div className="flex flex-col items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px] ">
         <CardContent
@@ -58,7 +57,7 @@ function WeatherCard({ weather, fiveDayWeather }) {
           label="Probality of rain"
           value={`${weather.main.temp}°C`}
         />
-        <hr className="w-[327px]  -m-2 border-gray-900" />
+        <hr className="w-[327px] h-[1px]  -m-2 border-gray-900" />
         <CardContent
           icon={<Wind />}
           label="Wind speed"
