@@ -3,10 +3,7 @@ import Header from "./Header";
 
 export default function MainLayout() {
   return (
-    <div
-      id="main-layout" // TODO -m-2
-      className="-m-2"
-    >
+    <div id="main-layout">
       <Header />
       <Outlet />
     </div>

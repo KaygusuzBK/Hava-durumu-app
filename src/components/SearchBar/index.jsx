@@ -136,18 +136,12 @@ export default function SearchBar() {
   }, []);
 
   useEffect(() => {
-    if (searchTerm === "") {
-      setMatchedCities([]);
-      setPopoverVisible(false);
-      return;
-    }
-
     const matches = allCities.filter((city) =>
       city.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setMatchedCities(matches.slice(0, 3));
-    setPopoverVisible(true);
-  }, [searchTerm, allCities]);
+    setPopoverVisible(!!searchTerm && matches.length > 0);
+  }, [searchTerm]);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -156,7 +150,7 @@ export default function SearchBar() {
   const handleCitySelect = (city) => {
     setSelectedCity(city);
     setSearchTerm(city);
-    setPopoverVisible(false); // Seçim yapıldıktan sonra popover'ı kapat
+    setPopoverVisible(false);
   };
 
   const handleKeyPress = (event) => {
@@ -164,7 +158,7 @@ export default function SearchBar() {
       setShowSpinner(true);
       setTimeout(() => {
         setShowSpinner(false);
-      }, 3000); // 3 saniye sonra spinner'ı kaldır
+      }, 1500);
     }
   };
 
@@ -172,7 +166,7 @@ export default function SearchBar() {
     <div className="search-bar relative">
       <input
         ref={inputRef}
-        className="bg-searchBar-bg rounded-lg text-white text-lg w-[311px] h-[56px] pl-4"
+        className="bg-searchBar-bg rounded-lg text-white text-lg w-[311px] h-[56px] border-none focus:outline-none pl-5"
         type="text"
         placeholder="Search location"
         value={searchTerm}
@@ -180,21 +174,25 @@ export default function SearchBar() {
         onKeyDown={handleKeyPress}
       />
       {popoverVisible && (
-        <div className="popover absolute bg-white border border-gray-300 shadow-md rounded mt-1 w-[315px]">
+        <div className="popover absolute bg-myGray-500 border-gray-300 rounded mt-1 w-[330px]">
           {matchedCities.map((city, index) => (
-            <div
-              key={index}
-              className="popover-item p-2 text-gray-800 cursor-pointer hover:bg-gray-200"
-              onClick={() => handleCitySelect(city)}
-            >
-              {city}
-            </div>
+            <React.Fragment key={index}>
+              <div
+                className="popover-item p-2 ml-2 m-1 text-myGray-white cursor-pointer hover:bg-myGray-600 hover:text-white"
+                onClick={() => handleCitySelect(city)}
+              >
+                {city}
+              </div>
+              {index !== matchedCities.length - 1 && (
+                <hr className="border-gray-400" />
+              )}
+            </React.Fragment>
           ))}
         </div>
       )}
       {showSpinner && (
         <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-          <SpinnerGap size={32} />
+          <SpinnerGap size={32} className="text-white spinner animate-spin" />
         </div>
       )}
     </div>

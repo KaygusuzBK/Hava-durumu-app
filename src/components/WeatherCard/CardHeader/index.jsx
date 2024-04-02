@@ -20,16 +20,23 @@ function CardHeader({ weather }) {
     return date.toLocaleDateString("en-US", { weekday: "long" });
   };
 
+  const BackgroundImage = () => {
+    const backgroundImageUrl = weatherConfig.getImagePath(
+      weather.weather[0].description,
+      dayOrNight()
+    );
+    return backgroundImageUrl;
+  };
+
   return (
     <div className="flex justify-center items-center  rounded-xl w-[335px] h-[304px] p-3">
       <div
         // TODO Bg image path
         className="flex flex-col justify-between items-start rounded-xl w-[335px] h-[304px] text-white"
         style={{
-          backgroundImage: `url(${weatherConfig.getImagePath(
-            weather.weather[0].description,
-            dayOrNight()
-          )})`,
+          backgroundImage: `url(${BackgroundImage()})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <div className="flex flex-col items-start justify-center px-4 py-3">
@@ -38,7 +45,7 @@ function CardHeader({ weather }) {
           </div>
           <div className=" text-text-xs ">
             {dtToDay(weather.dt)}{" "}
-            {new Date(weather.dt * 1000).toLocaleTimeString().slice(0, 5)}
+            {new Date(weather.dt * 1000).toLocaleTimeString()}
           </div>
         </div>
         <div className="flex justify-between items-end w-full h-full gap-4 px-4 py-3">
@@ -59,7 +66,7 @@ function CardHeader({ weather }) {
                 dayOrNight()
               )}
               alt="weather"
-              className="w-[160px] "
+              className="h-[160px]"
             />
           </div>
         </div>

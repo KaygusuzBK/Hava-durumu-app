@@ -9,7 +9,10 @@ const getCurrentWeather = async () => {
 
     const position = await getCurrentPosition();
     if (position.coords.latitude && position.coords.longitude) {
-      cityName = await getCityName(position.coords.latitude, position.coords.longitude);
+      cityName = await getCityName(
+        position.coords.latitude,
+        position.coords.longitude
+      );
     }
 
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
@@ -61,7 +64,7 @@ const getWeatherByCity = async (city) => {
 
 const getFiveDayWeatherForecast = async (city) => {
   try {
-    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=5&appid=${apiKey}`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=32&appid=${apiKey}`; // 5 günlük hava durumu almak için 32 günlük hava durumu alıyoruz
     const response = await axios.get(forecastUrl);
 
     return response.data.list;

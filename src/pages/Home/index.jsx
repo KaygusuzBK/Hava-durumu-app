@@ -9,6 +9,7 @@ function Home() {
   const [WeatherByFiveDayForecast, SetWeatherByFiveDayForecast] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [showCity, setShowCity] = useState(false);
 
   useEffect(() => {
     getCurrentWeather().then((data) => {
@@ -34,11 +35,11 @@ function Home() {
   }, [WeatherBycurrentLocation]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-4">
+    <div className="grid grid-cols-1">
       {loading ? (
         <SkeletonCard />
       ) : (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center flex-wrap">
           <div className="flex flex-col items-center justify-center">
             <WeatherCard
               key={0}
@@ -48,7 +49,9 @@ function Home() {
           </div>
           {/* 5 günlük hava durumu kartları olacak */}
           {!isMobileView &&
-            WeatherByFiveDayForecast.slice(1).map((weather, index) => (
+            WeatherByFiveDayForecast.filter(
+              (weather, index) => (index + 1) % 8 === 0 // 8 saatte bir veri geldiği için 8'e bölümünden kalanı 0 olanları alıyoruz
+            ).map((weather, index) => (
               <WeatherCard key={index + 1} weather={weather} />
             ))}
         </div>

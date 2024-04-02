@@ -53,25 +53,25 @@ function WeatherCard({ weather, fiveDayWeather }) {
           label="Thermal sensation"
           value={`${kelvinToCelsius(weather.main.temp).slice(0, 2)}°C`}
         />
-        <hr className="w-[327px] border -m-2 border-gray-900" />
+        <hr className="w-[327px] border -m-2  border-myGray-900" />
         <CardContent
           icon={<CloudRain />}
           label="Probality of rain"
           value={`${weather.clouds.all}%`}
         />
-        <hr className="w-[327px] h-[1px]  -m-2 border-gray-900" />
+        <hr className="w-[327px] border -m-2  border-myGray-900" />
         <CardContent
           icon={<Wind />}
           label="Wind speed"
           value={`${mpsToKph(weather.wind.speed).slice(0, 2)} km/h`}
         />
-        <hr className="w-[327px] border -m-2 border-gray-900" />
+        <hr className="w-[327px] border -m-2  border-myGray-900" />
         <CardContent
           icon={<Drop />}
           label="Air humidity"
           value={`${weather.main.humidity}%`}
         />
-        <hr className="w-[327px] border -m-2 border-gray-900" />
+        <hr className="w-[327px] border -m-2  border-myGray-900" />
         <CardContent
           icon={<Sun />}
           label="UV index"
