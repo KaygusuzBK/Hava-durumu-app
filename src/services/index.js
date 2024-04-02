@@ -5,11 +5,12 @@ const defaultCity = "İstanbul";
 
 const getCurrentWeather = async () => {
   try {
+    let cityName = defaultCity;
+
     const position = await getCurrentPosition();
-    const cityName =
-      position.coords.latitude && position.coords.longitude
-        ? await getCityName(position.coords.latitude, position.coords.longitude)
-        : defaultCity;
+    if (position.coords.latitude && position.coords.longitude) {
+      cityName = await getCityName(position.coords.latitude, position.coords.longitude);
+    }
 
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
     const response = await axios.get(weatherUrl);
@@ -28,7 +29,7 @@ const getCurrentPosition = () => {
       },
       (error) => {
         console.error("Konum izni reddedildi veya hata oluştu:", error.message);
-        reject(error); // Varsayılan değer olarak null koordinatları gönder
+        resolve({ coords: { latitude: null, longitude: null } }); // Varsayılan değer olarak null koordinatları gönder
       }
     );
   });

@@ -1,5 +1,5 @@
 import React from "react";
-import { weatherConfig } from "~/enums";
+import { weatherConfig } from "~/weatherConfig.js";
 
 export default function CardFooter({ weather = {}, fiveDayWeather = [] }) {
   const kelvinToCelsius = (kelvin) => {

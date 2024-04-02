@@ -1,4 +1,4 @@
-function CardContent({ label, value, icon, day }) {
+function CardContent({ label, value, icon }) {
   return (
     <>
       <div className="flex justify-between items-center text-myGray-200 w-[327px] bg-myGray-800 ">

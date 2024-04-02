@@ -42,6 +42,8 @@ function WeatherCard({ weather, fiveDayWeather }) {
     return (mps * 3.6).toFixed(2); // 1 m/s = 3.6 km/h
   };
 
+  console.log(weather);
+
   return (
     <div className="flex flex-col justify-start items-center rounded-xl w-[375px] h-[840px] gap-1">
       <CardHeader weather={weather} />
@@ -49,19 +51,19 @@ function WeatherCard({ weather, fiveDayWeather }) {
         <CardContent
           icon={<ThermometerSimple />}
           label="Thermal sensation"
-          value={`${kelvinToCelsius(weather.main.temp)}°C`}
+          value={`${kelvinToCelsius(weather.main.temp).slice(0, 2)}°C`}
         />
         <hr className="w-[327px] border -m-2 border-gray-900" />
         <CardContent
           icon={<CloudRain />}
           label="Probality of rain"
-          value={`${weather.main.temp}°C`}
+          value={`${weather.clouds.all}%`}
         />
         <hr className="w-[327px] h-[1px]  -m-2 border-gray-900" />
         <CardContent
           icon={<Wind />}
           label="Wind speed"
-          value={`${mpsToKph(weather.wind.speed)} km/h`}
+          value={`${mpsToKph(weather.wind.speed).slice(0, 2)} km/h`}
         />
         <hr className="w-[327px] border -m-2 border-gray-900" />
         <CardContent
@@ -73,7 +75,7 @@ function WeatherCard({ weather, fiveDayWeather }) {
         <CardContent
           icon={<Sun />}
           label="UV index"
-          value={`${weather.main.temp}°C`}
+          value={`${weather.main.humidity}`}
         />
       </div>
       {isMobile ? (

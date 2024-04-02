@@ -1,4 +1,4 @@
-import { weatherConfig } from "~/enums";
+import { weatherConfig } from "~/weatherConfig.js";
 
 function CardHeader({ weather }) {
   const kelvinToCelsius = (kelvin) => {
@@ -27,8 +27,8 @@ function CardHeader({ weather }) {
         className="flex flex-col justify-between items-start rounded-xl w-[335px] h-[304px] text-white"
         style={{
           backgroundImage: `url(${weatherConfig.getImagePath(
-            "Clear",
-            "Night"
+            weather.weather[0].description,
+            dayOrNight()
           )})`,
         }}
       >
