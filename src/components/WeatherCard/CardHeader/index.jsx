@@ -1,25 +1,7 @@
 import { weatherConfig } from "~/weatherConfig.js";
+import { kelvinToCelsius, dayOrNight, dtToDay } from "~/utils/utils.js";
 
 function CardHeader({ weather }) {
-  const kelvinToCelsius = (kelvin) => {
-    return (kelvin - 273.15).toFixed(1);
-  };
-
-  const mpsToKph = (mps) => {
-    return (mps * 3.6).toFixed(2); // 1 m/s = 3.6 km/h
-  };
-
-  const dayOrNight = () => {
-    const date = new Date();
-    const hours = date.getHours();
-    return hours >= 6 && hours < 18 ? "Day" : "Night";
-  };
-
-  const dtToDay = (dt) => {
-    const date = new Date(dt * 1000);
-    return date.toLocaleDateString("en-US", { weekday: "long" });
-  };
-
   const BackgroundImage = () => {
     const backgroundImageUrl = weatherConfig.getImagePath(
       weather.weather[0].description,

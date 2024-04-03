@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { SpinnerGap } from "@phosphor-icons/react";
 
-export default function SearchBar() {
+export default function SearchBar({ onCitySelect }) {
   const allCities = [
     "Adana",
     "Adıyaman",
@@ -151,6 +151,7 @@ export default function SearchBar() {
     setSelectedCity(city);
     setSearchTerm(city);
     setPopoverVisible(false);
+    onCitySelect(city);
   };
 
   const handleKeyPress = (event) => {

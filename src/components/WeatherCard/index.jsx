@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { kelvinToCelsius, mpsToKph } from "~/utils/utils.js";
 import CardHeader from "~/components/WeatherCard/CardHeader/index";
 import CardFooter from "~/components/WeatherCard/CardFooter/index";
 import CardContent from "~/components/WeatherCard/CardContent/index";
@@ -33,14 +34,6 @@ function WeatherCard({ weather, fiveDayWeather }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const kelvinToCelsius = (kelvin) => {
-    return (kelvin - 273.15).toFixed(1);
-  };
-
-  const mpsToKph = (mps) => {
-    return (mps * 3.6).toFixed(2); // 1 m/s = 3.6 km/h
-  };
 
   console.log(weather);
 

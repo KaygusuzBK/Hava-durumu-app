@@ -74,4 +74,10 @@ const getFiveDayWeatherForecast = async (city) => {
   }
 };
 
-export { getCurrentWeather, getWeatherByCity, getFiveDayWeatherForecast };
+export {
+  getCurrentWeather,
+  getWeatherByCity,
+  getFiveDayWeatherForecast,
+  getCurrentPosition,
+  getCityName,
+};

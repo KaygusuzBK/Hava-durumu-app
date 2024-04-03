@@ -1,25 +1,20 @@
 import React from "react";
 import { weatherConfig } from "~/weatherConfig.js";
+import {
+  kelvinToCelsius,
+  mpsToKph,
+  dayOrNight,
+  dtToDay,
+} from "~/utils/utils.js";
 
 export default function CardFooter({ weather = {}, fiveDayWeather = [] }) {
-  const kelvinToCelsius = (kelvin) => {
-    return (kelvin - 273.15).toFixed(2);
-  };
-
-  const mpsToKph = (mps) => {
-    return (mps * 3.6).toFixed(2); // 1 m/s <T= 3.6 km/h
-  };
-
-  const dayOrNight = () => {
-    const date = new Date();
-    const hours = date.getHours();
-    return hours >= 6 && hours < 18 ? "Day" : "Night";
-  };
-
-  const dtToDay = (dt) => {
-    const date = new Date(dt * 1000);
-    return date.toLocaleDateString("en-US", { weekday: "short" });
-  };
+  if (!weather) {
+    return (
+      <div className="text-white text-3xl justify-center items-center">
+        Loading...
+      </div>
+    );
+  }
   console.log(weather);
 
   return (
