@@ -1,25 +1,25 @@
 import axios from "axios";
 
 const apiKey = "3ab7af5ac4f39937f991577ad9f3418e";
+const defaultCity = "İstanbul";
 
 const getCurrentWeather = async () => {
   try {
-    const position = await getCurrentPosition();
-    const cityName =
-      position.coords.latitude && position.coords.longitude
-        ? await getCityName(position.coords.latitude, position.coords.longitude)
-        : defaultCity;
+    let cityName = defaultCity;
 
-    const weatherUrl =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      cityName +
-      "&appid=" +
-      apiKey;
+    const position = await getCurrentPosition();
+    if (position.coords.latitude && position.coords.longitude) {
+      cityName = await getCityName(
+        position.coords.latitude,
+        position.coords.longitude
+      );
+    }
+
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
     const response = await axios.get(weatherUrl);
 
     return response.data;
   } catch (error) {
-    console.error("Hava durumu alınamadı:", error.message);
     throw error;
   }
 };
@@ -41,12 +41,7 @@ const getCurrentPosition = () => {
 const getCityName = async (latitude, longitude) => {
   try {
     const response = await axios.get(
-      "https://api.openweathermap.org/data/2.5/weather?lat=" +
-        latitude +
-        "&lon=" +
-        longitude +
-        "&appid=" +
-        apiKey
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
     );
     return response.data.name;
   } catch (error) {
@@ -57,18 +52,32 @@ const getCityName = async (latitude, longitude) => {
 
 const getWeatherByCity = async (city) => {
   try {
-    const weatherUrl =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      city +
-      "&appid=" +
-      apiKey;
+    const weatherUrl = `https://pro.openweathermap.org/data/2.5/forecast/daily?q=${city}&appid=${apiKey}`;
     const response = await axios.get(weatherUrl);
 
     return response.data;
   } catch (error) {
-    console.error(city + " için hava durumu alınamadı:", error.message);
+    console.error(`${city} için hava durumu alınamadı:`, error.message);
     throw error;
   }
 };
 
-export { getCurrentWeather, getWeatherByCity };
+const getFiveDayWeatherForecast = async (city) => {
+  try {
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=32&appid=${apiKey}`; // 5 günlük hava durumu almak için 32 günlük hava durumu alıyoruz
+    const response = await axios.get(forecastUrl);
+
+    return response.data.list;
+  } catch (error) {
+    console.error("Sonraki 5 günün hava durumu alınamadı:", error.message);
+    throw error;
+  }
+};
+
+export {
+  getCurrentWeather,
+  getWeatherByCity,
+  getFiveDayWeatherForecast,
+  getCurrentPosition,
+  getCityName,
+};
