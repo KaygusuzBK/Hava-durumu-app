@@ -9,7 +9,7 @@ function Home() {
   const [WeatherByFiveDayForecast, SetWeatherByFiveDayForecast] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobileView, setIsMobileView] = useState(false);
-  const [showCity, setShowCity] = useState(false);
+  const [selectedCity, setSelectedCity] = useState("");
 
   useEffect(() => {
     getCurrentWeather().then((data) => {
@@ -30,14 +30,20 @@ function Home() {
     }
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // initial check
-    return () => window.removeEventListener("resize", handleResize);
+    handleResize(); // burda da fonksiyonu çağırıyoruz ki sayfa yenilendiğinde değişiklikleri görebilelim
+    return () => window.removeEventListener("resize", handleResize); // Event listener'ı kaldır
   }, [WeatherBycurrentLocation]);
 
   return (
     <div className="grid grid-cols-1">
       {loading ? (
-        <SkeletonCard />
+        <div className="flex justify-center items-center flex-wrap gap-6 mt-20">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </div>
       ) : (
         <div className="flex justify-center items-center flex-wrap">
           <div className="flex flex-col items-center justify-center">

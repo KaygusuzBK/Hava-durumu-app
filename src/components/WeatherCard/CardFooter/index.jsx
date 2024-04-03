@@ -15,7 +15,6 @@ export default function CardFooter({ weather = {}, fiveDayWeather = [] }) {
       </div>
     );
   }
-  console.log(weather);
 
   return (
     <>
@@ -27,7 +26,7 @@ export default function CardFooter({ weather = {}, fiveDayWeather = [] }) {
             className="flex flex-col items-center justify-center rounded-xl gap-1 text-myGray-white text-heading-xs"
           >
             <div className="text-heading-xs font-heading-xs">
-              {dtToDay(weather.dt)}
+              {dtToDay(weather.dt).slice(0, 3)}
             </div>
             <img
               src={weatherConfig.getIconPath(

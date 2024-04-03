@@ -4,7 +4,7 @@ import { kelvinToCelsius, dayOrNight, dtToDay } from "~/utils/utils.js";
 function CardHeader({ weather }) {
   const BackgroundImage = () => {
     const backgroundImageUrl = weatherConfig.getImagePath(
-      weather.weather[0].description,
+      weather.weather[0].main,
       dayOrNight()
     );
     return backgroundImageUrl;

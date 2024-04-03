@@ -35,8 +35,6 @@ function WeatherCard({ weather, fiveDayWeather }) {
     };
   }, []);
 
-  console.log(weather);
-
   return (
     <div className="flex flex-col justify-start items-center rounded-xl w-[375px] h-[840px] gap-1">
       <CardHeader weather={weather} />
