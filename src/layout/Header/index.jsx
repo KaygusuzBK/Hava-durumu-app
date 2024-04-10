@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import SearchBar from "~/components/SearchBar";
 import Logo from "~/assets/img/Logo.svg";
 import { NavLink } from "react-router-dom";
 import MobileComponent from "~/components/MobileComponent";
+import { useState } from "react";
 
-export default function Header({ onCitySelect }) {
-  const [selectedCity, setSelectedCity] = useState(""); // Seçilen şehir bilgisini state olarak tut
+export default function Header() {
 
-  const handleCitySelect = (city) => {
-    setSelectedCity(city); // Seçilen şehri state'e at
-  };
 
   return (
     <header className="flex flex-col items-center justify-between bg-header-bg p-4 md:flex-row md:justify-between ">
@@ -30,7 +27,7 @@ export default function Header({ onCitySelect }) {
           </div>
         </div>
       </MobileComponent>
-      <SearchBar onCitySelect={handleCitySelect} />
+      <SearchBar />
     </header>
   );
 }

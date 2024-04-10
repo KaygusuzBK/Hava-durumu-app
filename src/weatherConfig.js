@@ -7,7 +7,7 @@ export const weatherConfig = {
     const momentPath = ", Moment=";
     const extension = ".svg";
 
-    const weatherMoment = `${basePath}${weather}${momentPath}${moment}${extension}`;
+    const weatherMoment = `url('${basePath}${weather}${momentPath}${moment}${extension}')`;
 
     return weatherMoment;
   },

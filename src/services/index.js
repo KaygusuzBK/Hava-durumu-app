@@ -24,8 +24,7 @@ const getCurrentWeather = async () => {
   }
 };
 
-const getCurrentPosition = () => {
-  return new Promise((resolve, reject) => {
+const getCurrentPosition = () => {  return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         resolve(position);

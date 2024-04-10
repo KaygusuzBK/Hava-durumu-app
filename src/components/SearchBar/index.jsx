@@ -5,8 +5,6 @@ import { SpinnerGap } from "@phosphor-icons/react";
 
 export default function SearchBar({ onCitySelect }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const [debouncedInputValue, setDebouncedInputValue] = React.useState("");
   const [matchedCities, setMatchedCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [showSpinner, setShowSpinner] = useState(false);
@@ -36,7 +34,6 @@ export default function SearchBar({ onCitySelect }) {
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
-    setInputValue(event.target.value);
   };
 
   const handleCitySelect = (city) => {
@@ -44,13 +41,6 @@ export default function SearchBar({ onCitySelect }) {
     setSearchTerm(city);
     setPopoverVisible(false);
   };
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-
-    }, 2000);
-    return () => clearTimeout(timeoutId);
-  }, [inputValue, 2000]);
 
   return (
     <div className="search-bar relative">

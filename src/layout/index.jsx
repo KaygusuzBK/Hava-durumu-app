@@ -2,16 +2,12 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Header from "./Header";
 
-export default function MainLayout() {
-  const [selectedCity, setSelectedCity] = useState("");
+export default function MainLayout({ onCitySelect }) {
 
-  const handleCitySelect = (city) => {
-    setSelectedCity(city);
-  };
 
   return (
     <div id="main-layout">
-      <Header handleCitySelect={setSelectedCity} />
+      <Header  />
       <Outlet />
     </div>
   );
