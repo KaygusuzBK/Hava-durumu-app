@@ -10,29 +10,36 @@ function CardHeader({ weather }) {
     return backgroundImageUrl;
   };
 
+
   return (
-    <div className="flex justify-center items-center  rounded-xl w-[335px] h-[304px] p-3">
+    <div className="flex justify-center items-center  rounded-xl w-[359px] h-[328px] bg-myGray-800 ">
       <div
-        // TODO Bg image path
-        className="flex flex-col justify-between items-start rounded-xl w-[335px] h-[304px] text-white"
+        className="flex flex-col justify-between items-start rounded-lg w-[335px] h-[304px] text-white"
         style={{
-          backgroundImage: `url(${BackgroundImage()})`,
+          backgroundImage: BackgroundImage(),
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         <div className="flex flex-col items-start justify-center px-4 py-3">
-          <div className="text-heading-sm">
+          <div className="text-heading-sm font-heading-sm ">
             {weather.name} {weather.sys.country}
           </div>
           <div className=" text-text-xs ">
-            {dtToDay(weather.dt)}{" "}
-            {new Date(weather.dt * 1000).toLocaleTimeString()}
+            {dtToDay(weather.dt)}
+            {", "}
+            {new Date()
+              .toLocaleTimeString("en-US", {
+                month: "short",
+                day: "numeric",
+              })
+              .slice(0, 6)}{" "}
+            {new Date().getFullYear()}
           </div>
         </div>
         <div className="flex justify-between items-end w-full h-full gap-4 px-4 py-3">
           <div className="flex flex-col items-start justify-center ">
-            <div className="pl-0.5 text-heading-xl font-heading-xl pb-4">
+            <div className="pl-0.5 text-heading-xl font-heading-xl pb-2">
               {kelvinToCelsius(weather.main.temp).slice(0, 2)}°C
             </div>
             <div className="flex text-heading-sm font-heading-sm ">
@@ -48,7 +55,7 @@ function CardHeader({ weather }) {
                 dayOrNight()
               )}
               alt="weather"
-              className="h-[160px]"
+              className="h-[160px] w-[160px] max-w-[160px] max-h-[160px] mr-10"
             />
           </div>
         </div>

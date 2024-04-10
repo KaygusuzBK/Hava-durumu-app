@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import WeatherCard from "~/components/WeatherCard";
-import MobileComponent from "~/components/MobileComponent";
 import SkeletonCard from "~/components/SkeletonCard";
 import { getCurrentWeather, getFiveDayWeatherForecast } from "~/services";
+import { useParams } from "react-router-dom";
+import Card from "~/components/card";
 
 function Home() {
   const [WeatherBycurrentLocation, WeatherBysetCurrentLocation] = useState("");
@@ -10,6 +11,8 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [isMobileView, setIsMobileView] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
+
+  const NowCity = useParams().city;
 
   useEffect(() => {
     getCurrentWeather().then((data) => {
@@ -38,11 +41,9 @@ function Home() {
     <div className="grid grid-cols-1">
       {loading ? (
         <div className="flex justify-center items-center flex-wrap gap-6 mt-20">
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
+          {[...Array(5)].map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
         </div>
       ) : (
         <div className="flex justify-center items-center flex-wrap">
