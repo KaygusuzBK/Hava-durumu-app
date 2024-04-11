@@ -2,14 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { allCities } from "~/utils/cities.js";
 import { NavLink } from "react-router-dom";
 import { SpinnerGap } from "@phosphor-icons/react";
+import { useDebounce } from "~/hooks/useDebounce.jsx";
 
 export default function SearchBar({ onCitySelect }) {
+  const [inputValue, setInputValue] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [matchedCities, setMatchedCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [showSpinner, setShowSpinner] = useState(false);
   const [popoverVisible, setPopoverVisible] = useState(false);
   const inputRef = useRef(null);
+
+  const debouncedSearchTerm = useDebounce(searchTerm);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -26,11 +30,11 @@ export default function SearchBar({ onCitySelect }) {
 
   useEffect(() => {
     const matches = allCities.filter((city) =>
-      city.toLowerCase().includes(searchTerm.toLowerCase())
+      city.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
     );
     setMatchedCities(matches.slice(0, 3));
-    setPopoverVisible(!!searchTerm && matches.length > 0);
-  }, [searchTerm]);
+    setPopoverVisible(!!debouncedSearchTerm && matches.length > 0);
+  }, [debouncedSearchTerm]);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
