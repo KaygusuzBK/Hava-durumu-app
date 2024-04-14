@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { allCities } from "~/utils/cities.js";
 import { NavLink } from "react-router-dom";
-import { SpinnerGap } from "@phosphor-icons/react";
 import { useDebounce } from "~/hooks/useDebounce.jsx";
 
 export default function SearchBar({ onCitySelect }) {
@@ -73,11 +72,7 @@ export default function SearchBar({ onCitySelect }) {
           ))}
         </div>
       )}
-      {showSpinner && (
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-          <SpinnerGap size={32} className="text-white spinner animate-spin" />
-        </div>
-      )}
+
     </div>
   );
 }

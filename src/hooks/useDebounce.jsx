@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { SpinnerGap } from "@phosphor-icons/react";
 
-export const useDebounce = (value = "", delay = 500) => {
+export const useDebounce = (value = "", delay = 1000) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {

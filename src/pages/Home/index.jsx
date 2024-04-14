@@ -1,66 +1,46 @@
 import React, { useEffect, useState } from "react";
 import WeatherCard from "~/components/WeatherCard";
 import SkeletonCard from "~/components/SkeletonCard";
-import { getCurrentWeather, getFiveDayWeatherForecast } from "~/services";
+import { getCurrentWeather } from "~/services";
 import { useParams } from "react-router-dom";
 import Card from "~/components/card";
 
 function Home() {
-  const [WeatherBycurrentLocation, WeatherBysetCurrentLocation] = useState("");
-  const [WeatherByFiveDayForecast, SetWeatherByFiveDayForecast] = useState([]);
+  const [currentWeather, setCurrentWeather] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isMobileView, setIsMobileView] = useState(false);
-  const [selectedCity, setSelectedCity] = useState("");
-
-  const NowCity = useParams().city;
+  const { city: currentCity } = useParams();
 
   useEffect(() => {
-    getCurrentWeather().then((data) => {
-      WeatherBysetCurrentLocation(data);
-    });
-  }, [WeatherBysetCurrentLocation]);
+    setLoading(true);
 
-  useEffect(() => {
-    if (WeatherBycurrentLocation) {
-      getFiveDayWeatherForecast(WeatherBycurrentLocation.name).then((data) => {
-        SetWeatherByFiveDayForecast(data);
-        setLoading(false); // Yükleme tamamlandığında yüklemeyi durdur
-      });
-    }
+    const fetchData = async () => {
+      try {
+        const data = await getCurrentWeather(currentCity);
+        setCurrentWeather(data);
+      } catch (error) {
+        console.error("Hava durumu verileri alınamadı:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    function handleResize() {
-      setIsMobileView(window.innerWidth <= 640);
-    }
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // burda da fonksiyonu çağırıyoruz ki sayfa yenilendiğinde değişiklikleri görebilelim
-    return () => window.removeEventListener("resize", handleResize); // Event listener'ı kaldır
-  }, [WeatherBycurrentLocation]);
+    fetchData();
+  }, [currentCity]);
 
   return (
     <div className="grid grid-cols-1">
       {loading ? (
         <div className="flex justify-center items-center flex-wrap gap-6 mt-20">
-          {[...Array(5)].map((_, index) => (
+          <p>Hava durumu bilgileri yükleniyor...</p>
+          {[...Array(3)].map((_, index) => (
             <SkeletonCard key={index} />
           ))}
         </div>
       ) : (
         <div className="flex justify-center items-center flex-wrap">
           <div className="flex flex-col items-center justify-center">
-            <WeatherCard
-              key={0}
-              weather={WeatherBycurrentLocation}
-              fiveDayWeather={WeatherByFiveDayForecast}
-            />
+            {currentWeather && <WeatherCard key={0} weather={currentWeather} />}
           </div>
-          {/* 5 günlük hava durumu kartları olacak */}
-          {!isMobileView &&
-            WeatherByFiveDayForecast.filter(
-              (weather, index) => (index + 1) % 8 === 0 // 8 saatte bir veri geldiği için 8'e bölümünden kalanı 0 olanları alıyoruz
-            ).map((weather, index) => (
-              <WeatherCard key={index + 1} weather={weather} />
-            ))}
         </div>
       )}
     </div>

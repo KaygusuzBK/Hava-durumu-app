@@ -12,7 +12,7 @@ import {
 } from "@phosphor-icons/react";
 import Card from "../card";
 
-function WeatherCard({ weather, fiveDayWeather }) {
+function WeatherCard({ weather }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -39,7 +39,6 @@ function WeatherCard({ weather, fiveDayWeather }) {
       </div>
     );
   }
-  console.log(weather);
   return (
     <div className="flex flex-col justify-start items-center rounded-xl w-[375px] h-[840px] gap-1">
       <CardHeader weather={weather} />
@@ -76,10 +75,10 @@ function WeatherCard({ weather, fiveDayWeather }) {
       </div>
       {isMobile ? (
         <div className="flex items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px]  py-4">
-          <CardFooter
+          {/* <CardFooter
             weather={fiveDayWeather}
             fiveDayWeather={fiveDayWeather}
-          />
+          /> */}
         </div>
       ) : (
         <></>
