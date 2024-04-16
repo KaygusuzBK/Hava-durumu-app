@@ -18,7 +18,7 @@ const getCurrentWeather = async (city = "") => {
       }
     }
 
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
     const response = await axios.get(weatherUrl);
 
     return response.data;
@@ -35,7 +35,7 @@ const getCurrentPosition = () => {
       },
       (error) => {
         console.error("Konum izni reddedildi veya hata oluştu:", error.message);
-        resolve({ coords: { latitude: null, longitude: null } }); // Varsayılan değer olarak null koordinatları gönder
+        resolve({ coords: { latitude: null, longitude: null } });
       }
     );
   });

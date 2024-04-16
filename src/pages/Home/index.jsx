@@ -38,9 +38,10 @@ function Home() {
         </div>
       ) : (
         <div className="flex justify-center items-center flex-wrap">
-          <div className="flex flex-col items-center justify-center">
-            {currentWeather && <WeatherCard key={0} weather={currentWeather} />}
-          </div>
+          {currentWeather &&
+            currentWeather.list
+              .filter((item, index) => index % 8 === 0)
+              .map((item, index) => <WeatherCard key={index} weather={item} />)}
         </div>
       )}
     </div>

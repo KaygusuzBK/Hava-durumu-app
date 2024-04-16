@@ -7,7 +7,8 @@ import {
   dtToDay,
 } from "~/utils/utils.js";
 
-export default function CardFooter({ weather = {}, fiveDayWeather = [] }) {
+export default function CardFooter({ weather }) {
+  console.log("🚀 ~ CardFooter ~ weather:", weather);
   if (!weather) {
     return (
       <div className="text-white text-3xl justify-center items-center">
@@ -18,32 +19,56 @@ export default function CardFooter({ weather = {}, fiveDayWeather = [] }) {
 
   return (
     <>
-      {fiveDayWeather
-        .filter((weather, index) => (index + 1) % 8 === 0 || index === 0)
-        .map((weather, index) => (
+      {/* <div>
+        {weather.map((weatherItem, index) => (
           <div
             key={index}
             className="flex flex-col items-center justify-center rounded-xl gap-1 text-myGray-white text-heading-xs"
           >
             <div className="text-heading-xs font-heading-xs">
-              {dtToDay(weather.dt).slice(0, 3)}
+              {dtToDay(weatherItem.dt).slice(0, 3)}
             </div>
             <img
               src={weatherConfig.getIconPath(
-                weather.weather[0].description,
+                weatherItem.weather[0].description,
                 dayOrNight()
               )}
               alt="weather"
               className="h-[56px] w-[56px]"
             />
             <div className="text-myGray-white text-heading-xs">
-              {kelvinToCelsius(weather.main.temp_max).slice(0, 2)}°C
+              {kelvinToCelsius(weatherItem.main.temp_max).slice(0, 2)}°C
             </div>
             <div className="text-myGray-400 text-heading-xs">
-              {kelvinToCelsius(weather.main.temp_min).slice(0, 2)}°C
+              {kelvinToCelsius(weatherItem.main.temp_min).slice(0, 2)}°C
             </div>
           </div>
         ))}
+      </div> */}
+      {weather.map((weatherItem, index) => (
+        <div
+          key={index}
+          className="flex items-center justify-center rounded-xl gap-1 text-myGray-white text-heading-xs"
+        >
+          <div className="text-heading-xs font-heading-xs">
+            {dtToDay(weatherItem.dt).slice(0, 3)}
+          </div>
+          <img
+            src={weatherConfig.getIconPath(
+              weatherItem.weather[0].description,
+              dayOrNight()
+            )}
+            alt="weather"
+            className="h-[56px] w-[56px]"
+          />
+          <div className="text-myGray-white text-heading-xs">
+            {kelvinToCelsius(weatherItem.main.temp_max).slice(0, 2)}°C
+          </div>
+          <div className="text-myGray-400 text-heading-xs">
+            {kelvinToCelsius(weatherItem.main.temp_min).slice(0, 2)}°C
+          </div>
+        </div>
+      ))}
     </>
   );
 }
