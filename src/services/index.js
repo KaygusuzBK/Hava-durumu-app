@@ -1,11 +1,10 @@
 import axios from "axios";
 
 const apiKey = "3ab7af5ac4f39937f991577ad9f3418e";
-const defaultCity = "İstanbul";
 
 const getCurrentWeather = async (city = "") => {
   try {
-    let cityName = city.trim() ? city.trim() : defaultCity;
+    let cityName = city.trim();
 
     if (!cityName) {
       const position = await getCurrentPosition();
@@ -14,6 +13,8 @@ const getCurrentWeather = async (city = "") => {
           position.coords.latitude,
           position.coords.longitude
         );
+      } else {
+        throw new Error("Konum bilgisi alınamadı");
       }
     }
 
@@ -47,7 +48,7 @@ const getCityName = async (latitude, longitude) => {
     );
     return response.data.name;
   } catch (error) {
-    console.error("Şehir adı alınamadı:", error.message); // Hata durumunda konsola hata mesajını yaz
+    console.error("Şehir adı alınamadı:", error.message);
     throw error;
   }
 };
