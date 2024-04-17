@@ -24,4 +24,10 @@ const whatTimeIsIt = () => {
   return hours;
 };
 
-export { kelvinToCelsius, mpsToKph, dayOrNight, dtToDay, whatTimeIsIt };
+function getShortMonthName(dateString) {
+    const weatherDate = new Date(dateString);
+    return weatherDate.toLocaleString("en", { month: "short" });
+}
+
+
+export { kelvinToCelsius, mpsToKph, dayOrNight, dtToDay, whatTimeIsIt , getShortMonthName};

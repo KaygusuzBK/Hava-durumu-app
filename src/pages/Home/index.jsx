@@ -3,7 +3,7 @@ import WeatherCard from "~/components/WeatherCard";
 import SkeletonCard from "~/components/SkeletonCard";
 import { getCurrentWeather } from "~/services";
 import { useParams } from "react-router-dom";
-import Card from "~/components/card";
+import FlipCard from "~/components/card";
 
 function Home() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -31,8 +31,7 @@ function Home() {
     <div className="grid grid-cols-1">
       {loading ? (
         <div className="flex justify-center items-center flex-wrap gap-6 mt-20">
-          <p>Hava durumu bilgileri yükleniyor...</p>
-          {[...Array(3)].map((_, index) => (
+          {[...Array(5)].map((_, index) => (
             <SkeletonCard key={index} />
           ))}
         </div>
@@ -41,11 +40,39 @@ function Home() {
           {currentWeather &&
             currentWeather.list
               .filter((item, index) => index % 8 === 0)
-              .map((item, index) => <WeatherCard key={index} weather={item} />)}
+              .map((item, index) => {
+                const frontIndex = index * 8;
+                const backIndex = index * 8 + 4;
+                const AllWeather = currentWeather.list;
+                return (
+                  // <FlipCard
+                  //   key={index}
+                  //   frontContent={
+                  //     <WeatherCard
+                  //       weather={currentWeather.list[frontIndex]}
+                  //       city={currentCity}
+                  //     />
+                  //   }
+                  //   backContent={
+                  //     <WeatherCard
+                  //       weather={currentWeather.list[backIndex]}
+                  //       city={currentCity}
+                  //     />
+                  //   }
+                  // />
+                  <WeatherCard
+                    key={index}
+                    weather={item}
+                    city={currentCity}
+                    AllWeather={AllWeather}
+                  />
+                );
+              })}
         </div>
       )}
     </div>
   );
 }
+// <WeatherCard key={index} weather={item} city={currentCity} />
 
 export default Home;

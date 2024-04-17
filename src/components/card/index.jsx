@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Card = () => {
+const FlipCard = ({ frontContent, backContent }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleMouseEnter = () => {
@@ -12,23 +12,17 @@ const Card = () => {
   };
 
   return (
-    <div className="card-container">
+    <div className="card-container flex justify-center items-center flex-wrap m-60 ">
       <div
         className={`card ${isFlipped ? "is-flipped" : ""}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="front">
-          <h2>Ön Yüz</h2>
-          <p>Ön yüz içeriği burada</p>
-        </div>
-        <div className="back">
-          <h2>Arka Yüz</h2>
-          <p>Arka yüz içeriği burada</p>
-        </div>
+        <div className="front">{frontContent}</div>
+        <div className="back">{backContent}</div>
       </div>
     </div>
   );
 };
 
-export default Card;
+export default FlipCard;

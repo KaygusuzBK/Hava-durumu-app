@@ -18,8 +18,8 @@ body {
 }
 
 .card {
-  width: 200px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   transition: transform 0.5s;
   transform-style: preserve-3d;
 }
@@ -36,11 +36,6 @@ body {
   backface-visibility: hidden;
 }
 
-.front {
-  background-color: #ccc;
-}
-
 .back {
-  background-color: #aaa;
   transform: rotateY(180deg);
 }

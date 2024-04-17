@@ -12,7 +12,7 @@ import {
 } from "@phosphor-icons/react";
 import Card from "../card";
 
-function WeatherCard({ weather }) {
+function WeatherCard({ weather, city, AllWeather }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function WeatherCard({ weather }) {
   }
   return (
     <div className="flex flex-col justify-start items-center rounded-xl w-[375px] h-[840px] gap-1">
-      <CardHeader weather={weather} />
+      <CardHeader weather={weather} city={city} />
       <div className="flex flex-col items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px] ">
         <CardContent
           icon={<ThermometerSimple className="h-[24px] w-[24px]" />}
@@ -75,7 +75,7 @@ function WeatherCard({ weather }) {
       </div>
       {isMobile ? (
         <div className="flex items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px]  py-4">
-          <CardFooter weather={[weather]} />
+          <CardFooter weather={AllWeather} />
           {/* TODO weathera array olma şoku */}
         </div>
       ) : (

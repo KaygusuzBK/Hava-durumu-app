@@ -1,7 +1,12 @@
 import { weatherConfig } from "~/weatherConfig.js";
-import { kelvinToCelsius, dayOrNight, dtToDay } from "~/utils/utils.js";
+import {
+  kelvinToCelsius,
+  dayOrNight,
+  dtToDay,
+  getShortMonthName,
+} from "~/utils/utils.js";
 
-function CardHeader({ weather }) {
+function CardHeader({ weather, city }) {
   const BackgroundImage = () => {
     const backgroundImageUrl = weatherConfig.getImagePath(
       weather.weather[0].main,
@@ -10,6 +15,8 @@ function CardHeader({ weather }) {
     return backgroundImageUrl;
   };
 
+  console.log(weather);
+  console.log(city);
 
   return (
     <div className="flex justify-center items-center  rounded-xl w-[359px] h-[328px] bg-myGray-800 ">
@@ -22,19 +29,13 @@ function CardHeader({ weather }) {
         }}
       >
         <div className="flex flex-col items-start justify-center px-4 py-3">
-          <div className="text-heading-sm font-heading-sm ">
-            {weather.name} {weather.sys.country}
-          </div>
-          <div className=" text-text-xs ">
+          <div className="text-heading-sm font-heading-sm ">{city}</div>
+          <div className=" text-text-xs font-text-xs ">
             {dtToDay(weather.dt)}
             {", "}
-            {new Date()
-              .toLocaleTimeString("en-US", {
-                month: "short",
-                day: "numeric",
-              })
-              .slice(0, 6)}{" "}
-            {new Date().getFullYear()}
+            {getShortMonthName(weather.dt_txt)} {weather.dt_txt.slice(8, 10)}
+            {", "}
+            {weather.dt_txt.slice(0, 4)}
           </div>
         </div>
         <div className="flex justify-between items-end w-full h-full gap-4 px-4 py-3">
@@ -42,11 +43,13 @@ function CardHeader({ weather }) {
             <div className="pl-0.5 text-heading-xl font-heading-xl pb-2">
               {kelvinToCelsius(weather.main.temp).slice(0, 2)}°C
             </div>
-            <div className="flex text-heading-sm font-heading-sm ">
+            <div className="flex text-heading-xs font-heading-xs ">
               {kelvinToCelsius(weather.main.temp_max).slice(0, 2)}°C /
               {kelvinToCelsius(weather.main.temp_min).slice(0, 2)}°C
             </div>
-            <div className="text-sm">{weather.weather[0].description}</div>
+            <div className="text-text-sm font-text-sm">
+              {weather.weather[0].description}
+            </div>
           </div>
           <div className="flex items-center justify-center max-w-[160px] ">
             <img
