@@ -1,3 +1,5 @@
+// ResponsiveComponent.js
+
 import React, { useState, useEffect } from "react";
 
 const ResponsiveComponent = ({ mobileBreakpoint, children }) => {

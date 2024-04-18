@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { kelvinToCelsius, mpsToKph } from "~/utils/utils.js";
 import CardHeader from "~/components/WeatherCard/CardHeader/index";
 import CardFooter from "~/components/WeatherCard/CardFooter/index";
@@ -11,18 +10,11 @@ import {
   Drop,
   Sun,
 } from "@phosphor-icons/react";
+import Card from "../card";
 
-function WeatherCard({ weather, fiveDayWeather }) {
-  if (!weather) {
-    return (
-      <div className="text-white text-3xl justify-center items-center">
-        Loading...
-      </div>
-    );
-  }
-
+function WeatherCard({ weather, city, AllWeather }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  // Ekrana göre boyutlandırma
+
   useEffect(() => {
     function handleResize() {
       setIsMobile(window.innerWidth < 768);
@@ -35,48 +27,56 @@ function WeatherCard({ weather, fiveDayWeather }) {
     };
   }, []);
 
-  console.log(weather);
+  useEffect(() => {
+    // Şehir değiştiğinde yeniden boyutlandırma yapılması gerekebilir
+    setIsMobile(window.innerWidth < 768);
+  }, [weather]);
 
+  if (!weather) {
+    return (
+      <div className="text-white text-3xl justify-center items-center">
+        Loading...
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col justify-start items-center rounded-xl w-[375px] h-[840px] gap-1">
-      <CardHeader weather={weather} />
+      <CardHeader weather={weather} city={city} />
       <div className="flex flex-col items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px] ">
         <CardContent
-          icon={<ThermometerSimple />}
+          icon={<ThermometerSimple className="h-[24px] w-[24px]" />}
           label="Thermal sensation"
           value={`${kelvinToCelsius(weather.main.temp).slice(0, 2)}°C`}
         />
-        <hr className="w-[327px] border -m-2  border-myGray-900" />
+        <div className="w-[327px] border border-solid -m-2 border-myGray-500" />
         <CardContent
-          icon={<CloudRain />}
+          icon={<CloudRain className="h-[24px] w-[24px]" />}
           label="Probality of rain"
           value={`${weather.clouds.all}%`}
         />
-        <hr className="w-[327px] border -m-2  border-myGray-900" />
+        <div className="w-[327px] border border-solid border-myGray-500 " />
         <CardContent
-          icon={<Wind />}
+          icon={<Wind className="h-[24px] w-[24px]" />}
           label="Wind speed"
           value={`${mpsToKph(weather.wind.speed).slice(0, 2)} km/h`}
         />
-        <hr className="w-[327px] border -m-2  border-myGray-900" />
+        <div className="w-[327px] border border-solid border-myGray-500 " />
         <CardContent
-          icon={<Drop />}
+          icon={<Drop className="h-[24px] w-[24px]" />}
           label="Air humidity"
           value={`${weather.main.humidity}%`}
         />
-        <hr className="w-[327px] border -m-2  border-myGray-900" />
+        <div className="w-[327px] border border-solid border-myGray-500 " />
         <CardContent
-          icon={<Sun />}
+          icon={<Sun className="h-[24px] w-[24px]" />}
           label="UV index"
           value={`${weather.main.humidity}`}
         />
       </div>
       {isMobile ? (
         <div className="flex items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px]  py-4">
-          <CardFooter
-            weather={fiveDayWeather}
-            fiveDayWeather={fiveDayWeather}
-          />
+          <CardFooter weather={AllWeather} />
+          {/* TODO weathera array olma şoku */}
         </div>
       ) : (
         <></>

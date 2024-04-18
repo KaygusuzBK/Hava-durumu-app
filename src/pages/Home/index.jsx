@@ -1,59 +1,73 @@
 import React, { useEffect, useState } from "react";
 import WeatherCard from "~/components/WeatherCard";
-import MobileComponent from "~/components/MobileComponent";
 import SkeletonCard from "~/components/SkeletonCard";
-import { getCurrentWeather, getFiveDayWeatherForecast } from "~/services";
+import { getCurrentWeather } from "~/services";
+import { useParams } from "react-router-dom";
 
 function Home() {
-  const [WeatherBycurrentLocation, WeatherBysetCurrentLocation] = useState("");
-  const [WeatherByFiveDayForecast, SetWeatherByFiveDayForecast] = useState([]);
+  const [currentWeather, setCurrentWeather] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isMobileView, setIsMobileView] = useState(false);
-  const [showCity, setShowCity] = useState(false);
+  const { city: currentCity } = useParams();
 
   useEffect(() => {
-    getCurrentWeather().then((data) => {
-      WeatherBysetCurrentLocation(data);
-    });
-  }, [WeatherBysetCurrentLocation]);
+    setLoading(true);
 
-  useEffect(() => {
-    if (WeatherBycurrentLocation) {
-      getFiveDayWeatherForecast(WeatherBycurrentLocation.name).then((data) => {
-        SetWeatherByFiveDayForecast(data);
-        setLoading(false); // Yükleme tamamlandığında yüklemeyi durdur
-      });
-    }
+    const fetchData = async () => {
+      try {
+        const data = await getCurrentWeather(currentCity);
+        setCurrentWeather(data);
+      } catch (error) {
+        setCurrentWeather(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    function handleResize() {
-      setIsMobileView(window.innerWidth <= 640);
-    }
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // initial check
-    return () => window.removeEventListener("resize", handleResize);
-  }, [WeatherBycurrentLocation]);
+    fetchData();
+  }, [currentCity]);
 
   return (
     <div className="grid grid-cols-1">
       {loading ? (
-        <SkeletonCard />
+        <div className="flex justify-center items-center flex-wrap gap-6 mt-20">
+          {[...Array(5)].map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
       ) : (
         <div className="flex justify-center items-center flex-wrap">
-          <div className="flex flex-col items-center justify-center">
-            <WeatherCard
-              key={0}
-              weather={WeatherBycurrentLocation}
-              fiveDayWeather={WeatherByFiveDayForecast}
-            />
-          </div>
-          {/* 5 günlük hava durumu kartları olacak */}
-          {!isMobileView &&
-            WeatherByFiveDayForecast.filter(
-              (weather, index) => (index + 1) % 8 === 0 // 8 saatte bir veri geldiği için 8'e bölümünden kalanı 0 olanları alıyoruz
-            ).map((weather, index) => (
-              <WeatherCard key={index + 1} weather={weather} />
-            ))}
+          {/* İlk WeatherCard */}
+          {currentWeather &&
+            currentWeather.list
+              .filter((item, index) => index % 8 === 0)
+              .map((item, index) => {
+                const AllWeather = currentWeather.list;
+                return (
+                  index === 0 && (
+                    <WeatherCard
+                      key={index}
+                      weather={item}
+                      city={currentCity}
+                      AllWeather={AllWeather}
+                    />
+                  )
+                );
+              })}
+          {/* İkinci WeatherCard */}
+          {currentWeather &&
+            currentWeather.list
+              .filter((item, index) => index % 8 !== 0 && index % 8 === 4)
+              .slice(0, 4)
+              .map((item, index) => {
+                const AllWeather = currentWeather.list;
+                return (
+                  <WeatherCard
+                    key={index}
+                    weather={item}
+                    AllWeather={AllWeather}
+                  />
+                );
+              })}
         </div>
       )}
     </div>

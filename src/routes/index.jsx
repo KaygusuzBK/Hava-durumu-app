@@ -15,6 +15,18 @@ const routes = createBrowserRouter([
         path: "about",
         element: <div>About</div>,
       },
+      {
+        path: "city/:city",
+        element: <Home />,
+      },
+      {
+        path: "*",
+        element: (
+          <div className=" flex justify-center  items-center text-5xl text-white">
+            Sakin ol, bu sayfa henüz yapılmadı.
+          </div>
+        ),
+      },
     ],
   },
 ]);

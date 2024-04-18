@@ -1,9 +1,13 @@
+import React from "react";
 import SearchBar from "~/components/SearchBar";
 import Logo from "~/assets/img/Logo.svg";
 import { NavLink } from "react-router-dom";
 import MobileComponent from "~/components/MobileComponent";
+import { useState } from "react";
 
 export default function Header() {
+
+
   return (
     <header className="flex flex-col items-center justify-between bg-header-bg p-4 md:flex-row md:justify-between ">
       <div className="flex justify-center items-center">
