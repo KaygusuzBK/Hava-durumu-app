@@ -2,17 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { allCities } from "~/utils/cities.js";
 import { NavLink } from "react-router-dom";
 import { useDebounce } from "~/hooks/useDebounce.jsx";
+import { SpinnerGap } from "@phosphor-icons/react";
 
 export default function SearchBar({ onCitySelect }) {
-  const [inputValue, setInputValue] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [matchedCities, setMatchedCities] = useState([]);
-  const [selectedCity, setSelectedCity] = useState("");
   const [showSpinner, setShowSpinner] = useState(false);
   const [popoverVisible, setPopoverVisible] = useState(false);
   const inputRef = useRef(null);
 
-  const debouncedSearchTerm = useDebounce(searchTerm);
+  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -28,11 +27,13 @@ export default function SearchBar({ onCitySelect }) {
   }, []);
 
   useEffect(() => {
+    setShowSpinner(true);
     const matches = allCities.filter((city) =>
       city.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
     );
     setMatchedCities(matches.slice(0, 3));
     setPopoverVisible(!!debouncedSearchTerm && matches.length > 0);
+    setShowSpinner(false);
   }, [debouncedSearchTerm]);
 
   const handleInputChange = (event) => {
@@ -40,7 +41,6 @@ export default function SearchBar({ onCitySelect }) {
   };
 
   const handleCitySelect = (city) => {
-    setSelectedCity(city);
     setSearchTerm(city);
     setPopoverVisible(false);
   };
@@ -55,12 +55,24 @@ export default function SearchBar({ onCitySelect }) {
         value={searchTerm}
         onChange={handleInputChange}
       />
+
+      {/* SpinnerGap gösterimi */}
+      {showSpinner && (
+        <SpinnerGap
+          size={24}
+          weight="bold"
+          color="#FFFFFF"
+          style={{ position: "absolute", top: "15px", right: "10px" }}
+        />
+      )}
+
+      {/* Popover şehir eşleştirme listesi */}
       {popoverVisible && (
-        <div className="popover absolute bg-myGray-500 border-gray-300 rounded mt-1 w-[330px]">
+        <div className="popover absolute bg-myGray-500 border-gray-300 rounded w-[330px]">
           {matchedCities.map((city, index) => (
             <NavLink to={`/city/${city}`} key={index}>
               <div
-                className="popover-item p-2 ml-2 m-1 text-myGray-white cursor-pointer hover:bg-myGray-600 hover:text-white"
+                className="popover-item px-5 py-3 text-myGray-white cursor-pointer hover:bg-myGray-600 hover:text-white hover:font-bold"
                 onClick={() => handleCitySelect(city)}
               >
                 {city}
@@ -72,7 +84,6 @@ export default function SearchBar({ onCitySelect }) {
           ))}
         </div>
       )}
-
     </div>
   );
 }

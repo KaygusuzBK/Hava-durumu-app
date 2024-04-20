@@ -17,17 +17,9 @@ const dtToDay = (dt) => {
   return date.toLocaleDateString("en-US", { weekday: "long" });
 };
 
-const whatTimeIsIt = () => {
-  const date = new Date();
-  const hours = date.getHours();
-
-  return hours;
-};
-
 function getShortMonthName(dateString) {
-    const weatherDate = new Date(dateString);
-    return weatherDate.toLocaleString("en", { month: "short" });
+  const weatherDate = new Date(dateString);
+  return weatherDate.toLocaleString("en", { month: "short" });
 }
 
-
-export { kelvinToCelsius, mpsToKph, dayOrNight, dtToDay, whatTimeIsIt , getShortMonthName};
+export { kelvinToCelsius, mpsToKph, dayOrNight, dtToDay, getShortMonthName };
