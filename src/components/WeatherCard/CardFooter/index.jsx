@@ -16,11 +16,9 @@ export default function CardFooter({ weather }) {
     );
   }
 
-  console.log("weather", weather);
-
   return (
     <>
-      <div>
+      <div className="flex items-center justify-center rounded-xl gap-1 text-myGray-white text-heading-xs">
         {weather
           .filter((item, index) => index % 8 === 0)
           .map((weatherItem, index) => (

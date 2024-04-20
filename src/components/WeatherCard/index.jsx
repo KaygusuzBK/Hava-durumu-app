@@ -76,7 +76,6 @@ function WeatherCard({ weather, city, AllWeather }) {
       {isMobile ? (
         <div className="flex items-center justify-center bg-myGray-800 rounded-xl gap-2 w-[359px]  py-4">
           <CardFooter weather={AllWeather} />
-          {/* TODO weathera array olma şoku */}
         </div>
       ) : (
         <></>

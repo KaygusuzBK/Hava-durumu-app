@@ -14,7 +14,8 @@ const getCurrentWeather = async (city = "") => {
           position.coords.longitude
         );
       } else {
-        throw new Error("Konum bilgisi alınamadı");
+        // Konum izni reddedilirse
+        cityName = "İstanbul";
       }
     }
 

@@ -1,8 +1,19 @@
-# React + Vite
+# Hava Durumu Uygulaması
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Hava Durumu Uygulaması, kullanıcılara güncel hava durumu bilgilerini sunan bir mobil uygulamadır. Uygulama, kullanıcıların bulundukları yerin hava durumunu görüntülemelerine ve farklı şehirlerdeki hava durumu hakkında bilgi edinmelerine olanak tanır.
 
-Currently, two official plugins are available:
+## Özellikler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Anlık hava durumu bilgisi
+- Gelecek günler için hava tahminleri
+- Farklı şehirlerdeki hava durumunu görüntüleme
+- Kullanıcı dostu arayüz
+
+## Kurulum
+
+1. Bu depoyu yerel makinenize klonlayın:
+
+```bash
+git clone https://github.com/KaygusuzBK/Hava-durumu-app.git
+
+Gereken bağımlılıkları yükleyin:
