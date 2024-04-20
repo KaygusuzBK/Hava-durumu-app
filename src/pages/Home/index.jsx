@@ -3,6 +3,7 @@ import WeatherCard from "~/components/WeatherCard";
 import SkeletonCard from "~/components/SkeletonCard";
 import { getCurrentWeather } from "~/services";
 import { useParams } from "react-router-dom";
+import AllWeather from "~/components/AllWeather";
 
 function Home() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -55,12 +56,14 @@ function Home() {
             currentWeather.list
               .filter((item, index) => index % 8 === 0 && index < 8)
               .map((item, index) => (
-                <WeatherCard
-                  key={index}
-                  weather={currentWeather.list[0]}
-                  city={currentCity}
-                  AllWeather={currentWeather.list}
-                />
+                <div className="mt-6" key={index}>
+                  <WeatherCard
+                    key={index}
+                    weather={currentWeather.list[0]}
+                    city={currentCity}
+                    AllWeather={currentWeather.list}
+                  />
+                </div>
               ))
           ) : (
             <>
@@ -93,6 +96,7 @@ function Home() {
           )}
         </div>
       )}
+      <AllWeather />
     </div>
   );
 }

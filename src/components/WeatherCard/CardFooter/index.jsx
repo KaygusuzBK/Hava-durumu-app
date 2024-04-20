@@ -16,8 +16,6 @@ export default function CardFooter({ weather }) {
     );
   }
 
-  console.log("weather", weather);
-
   return (
     <>
       <div className="flex items-center justify-center rounded-xl gap-1 text-myGray-white text-heading-xs">
