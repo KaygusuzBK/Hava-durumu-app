@@ -10,7 +10,6 @@ import {
   Drop,
   Sun,
 } from "@phosphor-icons/react";
-import Card from "../card";
 
 function WeatherCard({ weather, city, AllWeather }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
