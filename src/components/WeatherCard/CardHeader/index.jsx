@@ -12,7 +12,9 @@ function CardHeader({ weather, city }) {
       <div
         className="flex flex-col justify-between items-start rounded-lg w-[335px] h-[304px] text-white"
         style={{
-          backgroundImage: `url("src/assets/img/Weather/Weather=${weather.weather[0].main}, Moment=${dayOrNight()}.svg")`,
+          backgroundImage: `url("src/assets/img/Weather/Weather=${
+            weather.weather[0].main
+          }, Moment=${dayOrNight()}.svg")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -41,7 +43,7 @@ function CardHeader({ weather, city }) {
             </div>
           </div>
           <div className="flex items-center justify-center max-w-[160px] ">
-            <img
+            <div
               src={
                 "/src/assets/img/Weather-icons/" +
                 weather.weather[0].description +
