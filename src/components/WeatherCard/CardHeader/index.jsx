@@ -43,9 +43,9 @@ function CardHeader({ weather, city }) {
             </div>
           </div>
           <div className="flex items-center justify-center max-w-[160px] ">
-            <div
+            <img
               src={
-                "/src/assets/img/Weather-icons/" +
+                "./src/assets/img/Weather-icons/" +
                 weather.weather[0].description +
                 "-" +
                 dayOrNight() +
