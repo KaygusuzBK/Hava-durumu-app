@@ -97,7 +97,7 @@ function Home() {
           )}
         </div>
       )}
-      <div className="mt-10 w-full flex justify-center items-center flex-wrap gap-6">
+      <div className="w-full flex justify-center items-center flex-wrap gap-6 mt-10">
         <AllWeather />
       </div>
     </div>

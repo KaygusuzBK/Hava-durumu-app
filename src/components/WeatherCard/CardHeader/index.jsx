@@ -1,4 +1,3 @@
-import { weatherConfig } from "~/weatherConfig.js";
 import {
   kelvinToCelsius,
   dayOrNight,
@@ -7,14 +6,6 @@ import {
 } from "~/utils/utils.js";
 
 function CardHeader({ weather, city }) {
-  const BackgroundImage = () => {
-    const backgroundImageUrl = weatherConfig.getImagePath(
-      weather.weather[0].main,
-      dayOrNight()
-    );
-    return backgroundImageUrl;
-  };
-
   return (
     <div className="flex justify-center items-center  rounded-xl w-[359px] h-[328px] bg-myGray-800 ">
       <div
