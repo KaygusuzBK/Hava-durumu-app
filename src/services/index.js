@@ -54,4 +54,30 @@ const getCityName = async (latitude, longitude) => {
   }
 };
 
-export { getCurrentWeather, getCurrentPosition, getCityName };
+const getWeatherForCities = async (cities) => {
+  try {
+    // API'ye yapılan tüm istekleri Promise.all ile toplu olarak beklemek için
+    const weatherPromises = cities.map((city) => {
+      // API URL'sini oluştur
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+      // API'den verileri al
+      return axios.get(weatherUrl);
+    });
+
+    // Tüm isteklerin sonuçlarını bekle ve al
+    const responses = await Promise.all(weatherPromises);
+
+    // Tüm sonuçlardan verileri çıkar ve döndür
+    return responses.map((response) => response.data);
+  } catch (error) {
+    console.error("Hava durumu verileri alınamadı:", error.message);
+    throw error;
+  }
+};
+
+export {
+  getCurrentWeather,
+  getCurrentPosition,
+  getCityName,
+  getWeatherForCities,
+};

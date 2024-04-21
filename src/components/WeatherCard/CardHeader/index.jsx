@@ -15,8 +15,6 @@ function CardHeader({ weather, city }) {
     return backgroundImageUrl;
   };
 
-
-
   return (
     <div className="flex justify-center items-center  rounded-xl w-[359px] h-[328px] bg-myGray-800 ">
       <div

@@ -4,6 +4,7 @@ import SkeletonCard from "~/components/SkeletonCard";
 import { getCurrentWeather } from "~/services";
 import { useParams } from "react-router-dom";
 import AllWeather from "~/components/AllWeather";
+import { allCities } from "~/utils/cities";
 
 function Home() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -96,7 +97,9 @@ function Home() {
           )}
         </div>
       )}
-      <AllWeather />
+      <div className="mt-10 w-full flex justify-center items-center flex-wrap gap-6">
+        <AllWeather />
+      </div>
     </div>
   );
 }
