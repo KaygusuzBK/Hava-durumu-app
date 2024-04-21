@@ -11,7 +11,7 @@ function CardHeader({ weather, city }) {
       <div
         className="flex flex-col justify-between items-start rounded-lg w-[335px] h-[304px] text-white"
         style={{
-          backgroundImageUrl: `url(src/assets/img/Weather-backgrounds/${
+          backgroundImage: `url(src/assets/img/Weather-backgrounds/${
             weather.weather[0].description
           }-${dayOrNight()}.jpg)`,
           backgroundSize: "cover",
