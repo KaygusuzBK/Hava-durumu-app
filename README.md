@@ -9,6 +9,14 @@ Hava Durumu Uygulaması, React ile oluşturulmuş modern ve kullanıcı dostu bi
 - Farklı şehirlerde hava durumu
 - Kullanıcı dostu arayüz
 
+## Teknolojiler
+
+- **React**: Uygulamanın ana çerçevesi olarak kullanılmıştır.
+- **React Router**: Uygulamanın sayfa navigasyonunu kolaylaştırmak için kullanılmıştır.
+- **Tailwind CSS**: Modern ve esnek bir CSS çerçevesi olarak kullanılmıştır.
+- **Phosphor Icons**: Kullanıcı arayüzü için ikon seti olarak kullanılmıştır.
+- **Axios**: Hava durumu verilerini almak için HTTP istekleri yapmada kullanılmıştır.
+
 ## Kurulum
 
 1. Depoyu klonlayın:
@@ -32,7 +40,7 @@ Hava Durumu Uygulaması, React ile oluşturulmuş modern ve kullanıcı dostu bi
 4. Uygulamayı başlatın:
 
     ```bash
-    npm start
+    npm run dev
     ```
 
 ## Kullanım
