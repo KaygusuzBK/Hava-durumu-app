@@ -6,12 +6,13 @@ import {
 } from "~/utils/utils.js";
 
 function CardHeader({ weather, city }) {
+  console.log(weather.weather[0].main);
   return (
     <div className="flex justify-center items-center  rounded-xl w-[359px] h-[328px] bg-myGray-800 ">
       <div
         className="flex flex-col justify-between items-start rounded-lg w-[335px] h-[304px] text-white"
         style={{
-          backgroundImage: `url("/src/assets/img/Weather/Weather=${
+          backgroundImage: `url("src/assets/img/Weather/Weather=${
             weather.weather[0].main
           }, Moment=${dayOrNight()}.svg")`,
           backgroundSize: "cover",
@@ -44,7 +45,7 @@ function CardHeader({ weather, city }) {
           <div className="flex items-center justify-center max-w-[160px] ">
             <img
               src={
-                "/src/assets/img/Weather-icons/" +
+                "./src/assets/img/Weather-icons/" +
                 weather.weather[0].description +
                 "-" +
                 dayOrNight() +
