@@ -1,5 +1,4 @@
 import React from "react";
-import { weatherConfig } from "~/weatherConfig.js";
 import {
   kelvinToCelsius,
   mpsToKph,
@@ -30,10 +29,13 @@ export default function CardFooter({ weather }) {
                 {dtToDay(weatherItem.dt).slice(0, 3)}
               </div>
               <img
-                src={weatherConfig.getIconPath(
-                  weatherItem.weather[0].description,
-                  dayOrNight()
-                )}
+                src={
+                  "/src/assets/img/Weather-icons/" +
+                  weatherItem.weather[0].description +
+                  "-" +
+                  dayOrNight() +
+                  ".svg"
+                }
                 alt="weather"
                 className="h-[56px] w-[56px]"
               />

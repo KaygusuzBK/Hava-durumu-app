@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getWeatherForCities } from "~/services";
-import { kelvinToCelsius } from "~/utils/utils";
-import { weatherConfig } from "~/weatherConfig.js";
+import { kelvinToCelsius, dayOrNight } from "~/utils/utils";
 
 export default function AllWeather() {
   const cities = [
@@ -38,13 +37,16 @@ export default function AllWeather() {
         {weatherData.map((weather, index) => (
           <div
             key={index}
-            className="flex flex-col items-center rounded-md shadow-md bg-myGray-500 border border-gray-300 p-4 m-2 w-52 h-52"
+            className="flex flex-col items-center rounded-md shadow-md bg-myGray-500 border border-gray-300 w-[150px] p-4 mb-4"
           >
             <img
-              src={weatherConfig.getIconPath(
-                weather.weather[0].description,
-                "day"
-              )}
+              src={
+                "/src/assets/img/Weather-icons/" +
+                weather.weather[0].description +
+                "-" +
+                dayOrNight() +
+                ".svg"
+              }
               alt={weather.weather[0].description}
               className="w-16 h-16"
             />
