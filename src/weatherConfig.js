@@ -3,7 +3,7 @@ export const weatherConfig = {
     backgroundImage: "src/assets/img/Background.svg",
   },
   getImagePath: (weather = "Clear", moment = "Day") => {
-    const basePath = "/src/assets/img/Weather/Weather=";
+    const basePath = "/~/assets/img/Weather/Weather=";
     const momentPath = ", Moment=";
     const extension = ".svg";
 
@@ -13,7 +13,7 @@ export const weatherConfig = {
   },
 
   getIconPath: (weather = "Clear", moment = "Day") => {
-    const basePath = "/src/assets/img/Weather-icons/";
+    const basePath = "/~/assets/img/Weather-icons/";
     const momentPath = "-";
     const extension = ".svg";
 
